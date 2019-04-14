@@ -1,0 +1,14 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile 'com.github.ClubObsidian:DynamicGui:3.5.1'
+    testImplementation 'junit:junit:4.12'
+}
