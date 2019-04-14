@@ -15,4 +15,9 @@ public class SlotParser {
 	{
 		this.slotToken = new SlotToken(section);
 	}
+	
+	public SlotToken getToken()
+	{
+		return this.slotToken;
+	}
 }
