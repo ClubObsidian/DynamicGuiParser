@@ -5,25 +5,26 @@ global-functions:
     functions:
     - "function"
 
-'0':
-  name: "Some name"
-  replacers:
-    '%test%': "This is some text"
-  functions:
-    load:
-      type: 
-      - "load"
-      functions:
-      - "function"
-    leftclick:
-      type:
-      - "left"
-      functions:
-      - "function"
-    allclick:
-      type:
-      - "left"
-      - "right"
-      - "middle" 
-       functions:
-       - "function"
+slots:
+  '0':
+    name: "Some name"
+    replacers:
+       '%test%': "This is some text"
+    functions:
+      load:
+        type: 
+        - "load"
+        functions:
+        - "function: with data"
+      leftclick:
+        type:
+        - "left"
+        functions:
+        - "function"
+      allclick:
+        type:
+        - "left"
+        - "right"
+        - "middle" 
+         functions:
+         - "function"
