@@ -26,5 +26,5 @@ slots:
         - "left"
         - "right"
         - "middle" 
-         functions:
-         - "function"
+        functions:
+        - "function"

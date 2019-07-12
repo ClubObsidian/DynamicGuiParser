@@ -11,16 +11,16 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class FunctionTree {
 
-	public Collection<FunctionNode> nodes;
+	public Collection<FunctionNode> rootNodes;
 	public FunctionTree(ConfigurationSection section)
 	{
-		this.nodes = new ArrayList<FunctionNode>();
+		this.rootNodes = new ArrayList<FunctionNode>();
 		this.parseNodes(section);
 	}
 	
-	public Collection<FunctionNode> getNodes()
+	public Collection<FunctionNode> getRootNodes()
 	{
-		return this.nodes;
+		return this.rootNodes;
 	}
 	
 	private void parseNodes(ConfigurationSection section)
@@ -34,13 +34,21 @@ public class FunctionTree {
 		Collection<FunctionType> typesList = new ArrayList<>();
 		for(String type : types)
 		{
-			typesList.add(FunctionType.valueOf(type));
+			typesList.add(FunctionType.valueOf(type.toUpperCase()));
 		}
 		return typesList;
 	}
 	
 	private String[] parseFunctionData(String functionData)
 	{
+		if(!functionData.contains(":"))
+		{
+			String[] args = new String[2];
+			args[0] = functionData;
+			args[1] = null;
+			return args;
+		}
+		
 		String[] ar = new String[2];
 		String dat = null;
 		String[] args = functionData.split(":");
@@ -51,6 +59,8 @@ public class FunctionTree {
 		}
 		else 
 		{
+			System.out.println("args: " + args.length);
+			System.out.println("out of bound: " + functionData);
 			dat = args[1];
 		}
 		if(args.length > 2)
@@ -79,11 +89,15 @@ public class FunctionTree {
 	
 	private void walkTree(int depth, ConfigurationSection section, FunctionNode parentNode)
 	{
+		System.out.println(section.getKeys());
 		for(String rootKey : section.getKeys())
 		{
+			System.out.println(rootKey);
 			ConfigurationSection rootSection = section.getConfigurationSection(rootKey);
-			if(rootSection.get("function") == null)
+			if(rootSection.get("functions") == null)
+			{
 				return;
+			}
 			
 			String name = rootKey;
 			Collection<FunctionType> types = this.parseTypes(rootSection.getStringList("type"));
@@ -94,7 +108,7 @@ public class FunctionTree {
 			
 			if(depth == 0)
 			{
-				this.nodes.add(childNode);
+				this.rootNodes.add(childNode);
 			}
 			else
 			{
