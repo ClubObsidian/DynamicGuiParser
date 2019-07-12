@@ -8,11 +8,6 @@ public class SlotParser {
 	private SlotToken slotToken;
 	public SlotParser(ConfigurationSection section)
 	{
-		this.parse(section);
-	}
-	
-	private void parse(ConfigurationSection section)
-	{
 		this.slotToken = new SlotToken(section);
 	}
 	

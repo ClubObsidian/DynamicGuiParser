@@ -8,13 +8,9 @@ public class FunctionParser {
 	private FunctionTree tree;
 	public FunctionParser(ConfigurationSection section)
 	{
-		this.parse(section);
+		this.tree = new FunctionTree(section);
 	}
 	
-	private void parse(ConfigurationSection section)
-	{
-		
-	}
 	
 	public FunctionTree getTree()
 	{
