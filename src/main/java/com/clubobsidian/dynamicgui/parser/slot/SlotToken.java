@@ -25,4 +25,6 @@ public class SlotToken {
 		this.data = (byte) section.getInteger("data");
 		this.nbt = section.getString("nbt");
 	}
+	
+	
 }
