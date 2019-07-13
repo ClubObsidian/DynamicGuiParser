@@ -72,13 +72,13 @@ public class FunctionTreeTest {
 		List<FunctionNode> childrenNodes = tree.getRootNodes().get(1).getChildren().get(0).getChildren();
 		int childrenNodeSize = childrenNodes.size();
 		FunctionNode node = childrenNodes.get(0);
-		FunctionToken data = node.getToken();
+		FunctionToken token = node.getToken();
 		String name = node.getToken().getName();
 		int depth = node.getDepth();
-		FunctionData token = data.getFunctions().get(0);
+		FunctionData data = token.getFunctions().get(0);
 		assertTrue("Depth is not two", depth == 2);
 		assertTrue("Children node size for depth two is not one", childrenNodeSize == 1);
-		assertTrue("Invalid data for depth-2-left node", token.getData().equals("some other data"));
+		assertTrue("Invalid data for depth-2-left node", data.getData().equals("some other data"));
 		assertTrue("Section name is not 'depth-2-left'", name.equals("depth-2-left"));
 	}
 	
