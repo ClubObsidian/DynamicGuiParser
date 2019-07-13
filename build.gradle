@@ -1,5 +1,8 @@
 plugins {
-    id 'java-library'
+	id 'java'
+	id 'jacoco'
+	id 'eclipse'
+	id 'idea'
 }
 
 repositories {
