@@ -3,8 +3,8 @@ package com.clubobsidian.dynamicgui.parser.function.tree;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -65,15 +65,15 @@ public class FunctionTree {
 		return ar;	
 	}
 	
-	private List<FunctionToken> parseTokens(List<String> tokens)
+	private List<FunctionData> parseTokens(List<String> tokens)
 	{
-		List<FunctionToken> functionTokens = new ArrayList<FunctionToken>();
+		List<FunctionData> functionTokens = new ArrayList<FunctionData>();
 		for(String token : tokens)
 		{
 			String[] parsedFunctionData = this.parseFunctionData(token);
 			String functionName = parsedFunctionData[0];
 			String functionData = parsedFunctionData[1];
-			functionTokens.add(new FunctionToken(functionName, functionData));
+			functionTokens.add(new FunctionData(functionName, functionData));
 		}
 		return functionTokens;
 	}
@@ -92,9 +92,9 @@ public class FunctionTree {
 			
 			String name = rootKey;
 			List<FunctionType> types = this.parseTypes(rootSection.getStringList("type"));
-			List<FunctionToken> functionTokens = this.parseTokens(rootSection.getStringList("functions"));
+			List<FunctionData> functionTokens = this.parseTokens(rootSection.getStringList("functions"));
 			
-			FunctionData data = new FunctionData(name, types, functionTokens);
+			FunctionToken data = new FunctionToken(name, types, functionTokens);
 			FunctionNode childNode = new FunctionNode(depth, data);
 			
 			if(depth == 0)

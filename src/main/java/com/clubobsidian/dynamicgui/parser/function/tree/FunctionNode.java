@@ -3,17 +3,17 @@ package com.clubobsidian.dynamicgui.parser.function.tree;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 
 public class FunctionNode {
 
 	private int depth;
-	private FunctionData data;
+	private FunctionToken token;
 	private List<FunctionNode> children;
-	public FunctionNode(int depth, FunctionData data)
+	public FunctionNode(int depth, FunctionToken token)
 	{
 		this.depth = depth;
-		this.data = data;
+		this.token = token;
 		this.children = new ArrayList<>();
 	}
 	
@@ -22,9 +22,9 @@ public class FunctionNode {
 		return this.depth;
 	}
 	
-	public FunctionData getData()
+	public FunctionToken getToken()
 	{
-		return this.data;
+		return this.token;
 	}
 	
 	public List<FunctionNode> getChildren()

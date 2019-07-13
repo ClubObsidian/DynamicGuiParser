@@ -8,8 +8,8 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
@@ -41,8 +41,8 @@ public class FunctionTreeTest {
 	public void testFunctionTypes()
 	{
 		FunctionNode node = tree.getRootNodes().get(0);
-		FunctionData data = node.getData();
-		FunctionType type = data.getTypes().get(0);
+		FunctionToken token = node.getToken();
+		FunctionType type = token.getTypes().get(0);
 		assertTrue("Function type is not load", type == FunctionType.LOAD);
 	}
 	
@@ -51,11 +51,11 @@ public class FunctionTreeTest {
 	{
 		List<FunctionNode> childrenNodes = tree.getRootNodes().get(0).getChildren();
 		int childrenNodeSize = childrenNodes.size();
-		FunctionData data = childrenNodes.get(0).getData();
-		FunctionToken token = data.getFunctions().get(0);
+		FunctionToken token = childrenNodes.get(0).getToken();
+		FunctionData data = token.getFunctions().get(0);
 		assertTrue("Children node size for descend is not one", childrenNodeSize == 1);
-		assertTrue("Function is not function", token.getName().equals("function"));
-		assertTrue("Function data for child not is not 'with other data'", token.getData().equals("with other data"));
+		assertTrue("Function is not function", data.getName().equals("function"));
+		assertTrue("Function data for child not is not 'with other data'", data.getData().equals("with other data"));
 	}
 	
 	@Test
@@ -72,10 +72,10 @@ public class FunctionTreeTest {
 		List<FunctionNode> childrenNodes = tree.getRootNodes().get(1).getChildren().get(0).getChildren();
 		int childrenNodeSize = childrenNodes.size();
 		FunctionNode node = childrenNodes.get(0);
-		FunctionData data = node.getData();
-		String name = node.getData().getName();
+		FunctionToken data = node.getToken();
+		String name = node.getToken().getName();
 		int depth = node.getDepth();
-		FunctionToken token = data.getFunctions().get(0);
+		FunctionData token = data.getFunctions().get(0);
 		assertTrue("Depth is not two", depth == 2);
 		assertTrue("Children node size for depth two is not one", childrenNodeSize == 1);
 		assertTrue("Invalid data for depth-2-left node", token.getData().equals("some other data"));
@@ -86,19 +86,19 @@ public class FunctionTreeTest {
 	public void testColonParsing()
 	{
 		FunctionNode node = tree.getRootNodes().get(2);
-		FunctionData data = node.getData();
-		FunctionToken token = data.getFunctions().get(1);
-		String functionDataStr = token.getData();
-		assertTrue("Function data is not 'with:a colon'", functionDataStr.equals("with:a colon"));
+		FunctionToken token = node.getToken();
+		FunctionData data = token.getFunctions().get(1);
+		String functionData = data.getData();
+		assertTrue("Function data is not 'with:a colon'", functionData.equals("with:a colon"));
 	}
 	
 	@Test
 	public void testTrimming()
 	{
 		FunctionNode node = tree.getRootNodes().get(2);
-		FunctionData data = node.getData();
-		FunctionToken token = data.getFunctions().get(2);
-		String functionDataStr = token.getData();
+		FunctionToken token = node.getToken();
+		FunctionData data = token.getFunctions().get(2);
+		String functionDataStr = data.getData();
 		assertTrue("Function data is not 'test trimming'", functionDataStr.equals("test trimming"));
 	}
 }
