@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
-import com.clubobsidian.dynamicgui.parser.function.FunctionSection;
+import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -94,7 +94,7 @@ public class FunctionTree {
 			List<FunctionType> types = this.parseTypes(rootSection.getStringList("type"));
 			List<FunctionToken> functionTokens = this.parseTokens(rootSection.getStringList("functions"));
 			
-			FunctionSection data = new FunctionSection(name, types, functionTokens);
+			FunctionData data = new FunctionData(name, types, functionTokens);
 			FunctionNode childNode = new FunctionNode(depth, data);
 			
 			if(depth == 0)
