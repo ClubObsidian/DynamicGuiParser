@@ -34,10 +34,6 @@ public class FunctionNode {
 	
 	public boolean addChild(FunctionNode child)
 	{
-		if(this.children.contains(child))
-		{
-			return false;
-		}
 		return this.children.add(child);
 	}
 }
