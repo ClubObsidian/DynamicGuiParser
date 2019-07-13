@@ -23,6 +23,7 @@ global-functions:
       - "load"
       functions:
       - "function: with data"
+      - "function-to-normalize"
       depth-1-load:
         type:
         - "load"

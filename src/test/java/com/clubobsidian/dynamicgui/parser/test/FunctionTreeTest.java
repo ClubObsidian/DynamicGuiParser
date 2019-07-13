@@ -101,4 +101,14 @@ public class FunctionTreeTest {
 		String functionDataStr = data.getData();
 		assertTrue("Function data is not 'test trimming'", functionDataStr.equals("test trimming"));
 	}
+	
+	@Test
+	public void testNormalize()
+	{
+		FunctionNode node = tree.getRootNodes().get(0);
+		FunctionToken token = node.getToken();
+		FunctionData data = token.getFunctions().get(1);
+		String functionName = data.getName();
+		assertTrue("Function normalization failed, function is not 'functiontonormalize'", functionName.equals("functiontonormalize"));
+	}
 }
