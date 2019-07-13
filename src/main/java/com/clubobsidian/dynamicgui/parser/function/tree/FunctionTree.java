@@ -52,14 +52,8 @@ public class FunctionTree {
 		String dat = null;
 		String[] args = functionData.split(":");
 		
-		if(functionData.charAt(functionData.indexOf(":") + 1) == ' ')
-		{
-			dat = args[1].substring(1);
-		}
-		else 
-		{
-			dat = args[1].trim();
-		}
+		dat = args[1].trim();
+		
 		if(args.length > 2)
 		{
 			for(int i = 2; i < args.length; i++)
