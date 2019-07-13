@@ -1,5 +1,6 @@
 package com.clubobsidian.dynamicgui.parser.slot;
 
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class SlotToken {
@@ -10,6 +11,8 @@ public class SlotToken {
 	private String nbt;
 	private boolean closed;
 	private byte data;
+	
+	private FunctionTree functionTree;
 	
 	public SlotToken(ConfigurationSection section)
 	{
@@ -23,6 +26,9 @@ public class SlotToken {
 		this.nbt = section.getString("nbt");
 		this.closed = section.getBoolean("close");
 		this.data = (byte) section.getInteger("data");
+		
+		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
+		this.functionTree = new FunctionTree(functionsSection);
 	}
 	
 	public int getIndex()
@@ -53,5 +59,10 @@ public class SlotToken {
 	public byte getData()
 	{
 		return this.data;
+	}
+	
+	public FunctionTree getFunctionTree()
+	{
+		return this.functionTree;
 	}
 }
