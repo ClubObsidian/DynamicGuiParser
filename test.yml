@@ -3,8 +3,9 @@ rows: 1
 mode: "set"
 close: true
 npcs:
-- 5
-- 77
+  citizens:
+  - 5
+  - 77
 
 global-functions:
   function: #Fails on function fail, considered a global function, if you want bound to one slot put under own section

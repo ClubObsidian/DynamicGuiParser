@@ -1,5 +1,6 @@
 package com.clubobsidian.dynamicgui.parser.gui;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ public class GuiToken {
 	private int rows;
 	private GuiMode mode;
 	private boolean closed;
-	private List<Integer> npcs;
+	private Map<String, List<Integer>> npcs;
 	private Map<Integer, SlotToken> slots;
 	private FunctionTree globalFunctions;
 	public GuiToken(ConfigurationSection section)
@@ -23,11 +24,22 @@ public class GuiToken {
 		this.rows = section.getInteger("rows");
 		this.mode = GuiMode.valueOf(section.getString("mode").toUpperCase());
 		this.closed = section.getBoolean("close");
-		this.npcs = section.getIntegerList("npcs");
+		this.loadNpcs(section);
 		this.loadSlots(section);
 		
 		ConfigurationSection globalSection = section.getConfigurationSection("global-functions");
 		this.globalFunctions = new FunctionTree(globalSection);
+	}
+	
+	private void loadNpcs(ConfigurationSection section)
+	{
+		this.npcs = new HashMap<>();
+		ConfigurationSection npcSection = section.getConfigurationSection("npcs");
+		for(String key : npcSection.getKeys())
+		{
+			List<Integer> npcIds = npcSection.getIntegerList(key);
+			npcs.put(key, npcIds);
+		}
 	}
 	
 	private void loadSlots(ConfigurationSection section)
@@ -67,7 +79,7 @@ public class GuiToken {
 		return this.closed;
 	}
 	
-	public List<Integer> getNpcs()
+	public Map<String, List<Integer>> getNpcs()
 	{
 		return this.npcs;
 	}

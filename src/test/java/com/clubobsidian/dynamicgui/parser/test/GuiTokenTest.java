@@ -59,10 +59,12 @@ public class GuiTokenTest {
 	@Test
 	public void testNpcs()
 	{
-		List<Integer> npcs = token.getNpcs();
-		assertTrue("Npcs size is not 2", npcs.size() == 2);
-		assertTrue("Npc at index 0 is not 5", npcs.get(0) == 5);
-		assertTrue("Npc at index 1 is not 88", npcs.get(1) == 77);
+		Map<String, List<Integer>> npcs = token.getNpcs();
+		List<Integer> npcIds = npcs.get("citizens");
+		assertTrue("No npc ids were found for citizens", npcIds != null);
+		assertTrue("Npcs size is not 2", npcIds.size() == 2);
+		assertTrue("Npc at index 0 is not 5", npcIds.get(0) == 5);
+		assertTrue("Npc at index 1 is not 88", npcIds.get(1) == 77);
 	}
 	
 	@Test
