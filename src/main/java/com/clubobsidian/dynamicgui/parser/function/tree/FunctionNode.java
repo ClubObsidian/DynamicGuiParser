@@ -40,9 +40,4 @@ public class FunctionNode {
 		}
 		return this.children.add(child);
 	}
-	
-	public boolean removeChild(FunctionNode child)
-	{
-		return this.children.remove(child);
-	}
 }
