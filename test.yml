@@ -48,4 +48,5 @@ global-functions:
       functions:
       - "function"
       - "function: with:a colon"
+      - "functions:  test trimming   "
         

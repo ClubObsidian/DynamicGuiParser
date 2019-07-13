@@ -77,4 +77,14 @@ public class FunctionTreeTest {
 		String functionDataStr = token.getData();
 		assertTrue("Function data is not 'with:a colon'", functionDataStr.equals("with:a colon"));
 	}
+	
+	@Test
+	public void testTrimming()
+	{
+		FunctionNode node = tree.getRootNodes().get(2);
+		FunctionTokenSection data = node.getData();
+		FunctionToken token = data.getFunctions().get(2);
+		String functionDataStr = token.getData();
+		assertTrue("Function data is not 'test trimming'", functionDataStr.equals("test trimming"));
+	}
 }
