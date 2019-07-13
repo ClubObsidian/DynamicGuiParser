@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionTokenSection;
+import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.wrappy.Configuration;
@@ -34,6 +35,15 @@ public class FunctionTreeTest {
 	{
 		int rootNodeSize = tree.getRootNodes().size();
 		assertTrue("Root node size is not three", rootNodeSize == 3);
+	}
+	
+	@Test
+	public void testFunctionTypes()
+	{
+		FunctionNode node = tree.getRootNodes().get(0);
+		FunctionTokenSection data = node.getData();
+		FunctionType type = data.getTypes().get(0);
+		assertTrue("Function type is not load", type == FunctionType.LOAD);
 	}
 	
 	@Test
