@@ -5,7 +5,6 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class SlotToken {
 
-	private int index;
 	private String icon;
 	private String name;
 	private String nbt;
@@ -29,11 +28,6 @@ public class SlotToken {
 		
 		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
 		this.functionTree = new FunctionTree(functionsSection);
-	}
-	
-	public int getIndex()
-	{
-		return this.index;
 	}
 	
 	public String getIcon()
