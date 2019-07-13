@@ -7,9 +7,9 @@ public class SlotToken {
 	private int index;
 	private String icon;
 	private String name;
-	private boolean close;
-	private byte data;
 	private String nbt;
+	private boolean closed;
+	private byte data;
 	
 	public SlotToken(ConfigurationSection section)
 	{
@@ -21,10 +21,37 @@ public class SlotToken {
 		this.icon = section.getString("icon");
 		this.name = section.getString("name");
 		this.nbt = section.getString("nbt");
-		this.close = section.getBoolean("close");
+		this.closed = section.getBoolean("close");
 		this.data = (byte) section.getInteger("data");
-		this.nbt = section.getString("nbt");
 	}
 	
+	public int getIndex()
+	{
+		return this.index;
+	}
 	
+	public String getIcon()
+	{
+		return this.icon;
+	}
+	
+	public String getName()
+	{
+		return this.name;
+	}
+	
+	public String getNbt()
+	{
+		return this.nbt;
+	}
+	
+	public boolean isClosed()
+	{
+		return this.closed;
+	}
+	
+	public byte getData()
+	{
+		return this.data;
+	}
 }
