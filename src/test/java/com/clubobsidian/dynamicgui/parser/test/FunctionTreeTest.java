@@ -67,4 +67,14 @@ public class FunctionTreeTest {
 		assertTrue("Children node size for depth two is not one", childrenNodeSize == 1);
 		assertTrue("Invalid data for depth-2-left node", token.getData().equals("some other data"));
 	}
+	
+	@Test
+	public void testColonParsing()
+	{
+		FunctionNode node = tree.getRootNodes().get(2);
+		FunctionTokenSection data = node.getData();
+		FunctionToken token = data.getFunctions().get(1);
+		String functionDataStr = token.getData();
+		assertTrue("Function data is not 'with:a colon'", functionDataStr.equals("with:a colon"));
+	}
 }

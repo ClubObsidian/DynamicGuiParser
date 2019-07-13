@@ -47,4 +47,5 @@ global-functions:
       - "middle" 
       functions:
       - "function"
+      - "function: with:a colon"
         
