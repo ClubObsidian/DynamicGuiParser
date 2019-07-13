@@ -7,6 +7,12 @@ npcs:
   - 5
   - 77
 
+gui-functions:
+  function:
+    type: "load"
+    functions:
+    - "function-2"
+
 global-functions:
   function: #Fails on function fail, considered a global function, if you want bound to one slot put under own section
     type: "fail"

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.parser.gui.GuiMode;
@@ -72,6 +73,16 @@ public class GuiTokenTest {
 	{
 		Map<Integer, SlotToken> slots = token.getSlots();
 		assertTrue("Slots size is not 2", slots.size() == 2);
+	}
+	
+	@Test
+	public void testGuiFunctions()
+	{
+		FunctionTree tree = token.getGuiFunctions();
+		FunctionNode node = tree.getRootNodes().get(0);
+		FunctionData data = node.getToken().getFunctions().get(0);
+		String functionName = data.getName();
+		assertTrue("Function name is not function2", functionName.equals("function2"));
 	}
 	
 	@Test
