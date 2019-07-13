@@ -1,7 +1,7 @@
 package com.clubobsidian.dynamicgui.parser.function.tree;
 
-import java.util.Collection;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.clubobsidian.dynamicgui.parser.function.FunctionTokenSection;
 
@@ -9,12 +9,12 @@ public class FunctionNode {
 
 	private int depth;
 	private FunctionTokenSection data;
-	private Collection<FunctionNode> children;
+	private List<FunctionNode> children;
 	public FunctionNode(int depth, FunctionTokenSection data)
 	{
 		this.depth = depth;
 		this.data = data;
-		this.children = new ConcurrentLinkedQueue<>();
+		this.children = new ArrayList<>();
 	}
 	
 	public int getDepth()
@@ -27,7 +27,7 @@ public class FunctionNode {
 		return this.data;
 	}
 	
-	public Collection<FunctionNode> getChildren()
+	public List<FunctionNode> getChildren()
 	{
 		return this.children;
 	}

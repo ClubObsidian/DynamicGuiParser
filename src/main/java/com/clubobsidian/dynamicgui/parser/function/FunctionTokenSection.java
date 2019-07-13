@@ -1,13 +1,13 @@
 package com.clubobsidian.dynamicgui.parser.function;
 
-import java.util.Collection;
+import java.util.List;
 
 public class FunctionTokenSection {
 
 	private String name;
-	private Collection<FunctionType> types;
-	private Collection<FunctionToken> functions;
-	public FunctionTokenSection(String name, Collection<FunctionType> types, Collection<FunctionToken> functions)
+	private List<FunctionType> types;
+	private List<FunctionToken> functions;
+	public FunctionTokenSection(String name, List<FunctionType> types, List<FunctionToken> functions)
 	{
 		this.name = name;
 		this.types = types;
@@ -19,12 +19,12 @@ public class FunctionTokenSection {
 		return this.name;
 	}
 	
-	public Collection<FunctionType> getTypes()
+	public List<FunctionType> getTypes()
 	{
 		return this.types;
 	}
 	
-	public Collection<FunctionToken> getFunctions()
+	public List<FunctionToken> getFunctions()
 	{
 		return this.functions;
 	}

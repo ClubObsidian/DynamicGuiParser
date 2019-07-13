@@ -1,7 +1,6 @@
 package com.clubobsidian.dynamicgui.parser.function.tree;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
@@ -11,14 +10,14 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class FunctionTree {
 
-	public Collection<FunctionNode> rootNodes;
+	public List<FunctionNode> rootNodes;
 	public FunctionTree(ConfigurationSection section)
 	{
 		this.rootNodes = new ArrayList<FunctionNode>();
 		this.parseNodes(section);
 	}
 	
-	public Collection<FunctionNode> getRootNodes()
+	public List<FunctionNode> getRootNodes()
 	{
 		return this.rootNodes;
 	}
@@ -29,9 +28,9 @@ public class FunctionTree {
 		this.walkTree(depth, section, null);
 	}
 	
-	private Collection<FunctionType> parseTypes(List<String> types)
+	private List<FunctionType> parseTypes(List<String> types)
 	{
-		Collection<FunctionType> typesList = new ArrayList<>();
+		List<FunctionType> typesList = new ArrayList<>();
 		for(String type : types)
 		{
 			typesList.add(FunctionType.valueOf(type.toUpperCase()));
@@ -74,9 +73,9 @@ public class FunctionTree {
 		return ar;	
 	}
 	
-	private Collection<FunctionToken> parseTokens(List<String> tokens)
+	private List<FunctionToken> parseTokens(List<String> tokens)
 	{
-		Collection<FunctionToken> functionTokens = new ArrayList<FunctionToken>();
+		List<FunctionToken> functionTokens = new ArrayList<FunctionToken>();
 		for(String token : tokens)
 		{
 			String[] parsedFunctionData = this.parseFunctionData(token);
@@ -96,12 +95,12 @@ public class FunctionTree {
 			ConfigurationSection rootSection = section.getConfigurationSection(rootKey);
 			if(rootSection.get("functions") == null)
 			{
-				return;
+				continue;
 			}
 			
 			String name = rootKey;
-			Collection<FunctionType> types = this.parseTypes(rootSection.getStringList("type"));
-			Collection<FunctionToken> functionTokens = this.parseTokens(rootSection.getStringList("functions"));
+			List<FunctionType> types = this.parseTypes(rootSection.getStringList("type"));
+			List<FunctionToken> functionTokens = this.parseTokens(rootSection.getStringList("functions"));
 			
 			FunctionTokenSection data = new FunctionTokenSection(name, types, functionTokens);
 			FunctionNode childNode = new FunctionNode(depth, data);
