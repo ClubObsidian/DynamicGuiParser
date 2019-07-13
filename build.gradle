@@ -13,3 +13,20 @@ dependencies {
 	testImplementation 'junit:junit:4.12'
 	compile 'com.github.clubobsidian:wrappy:1.8.0'
 }
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+		html.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
+	}
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+	 archives javadocJar
+}
