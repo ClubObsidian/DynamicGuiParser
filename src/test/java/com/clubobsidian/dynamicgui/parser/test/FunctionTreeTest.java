@@ -3,7 +3,6 @@ package com.clubobsidian.dynamicgui.parser.test;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.List;
 
 import org.junit.BeforeClass;
@@ -25,8 +24,7 @@ public class FunctionTreeTest {
 	{
 		File testFile = new File("test.yml");
 		Configuration config = Configuration.load(testFile);
-		ConfigurationSection slotsSection = config.getConfigurationSection("slots");
-		ConfigurationSection firstSlotSection = slotsSection.getConfigurationSection("0");
+		ConfigurationSection firstSlotSection = config.getConfigurationSection("0");
 		ConfigurationSection functionSection = firstSlotSection.getConfigurationSection("functions");
 		tree = new FunctionTree(functionSection);
 	}
@@ -35,7 +33,6 @@ public class FunctionTreeTest {
 	public void testRootNodeSize()
 	{
 		int rootNodeSize = tree.getRootNodes().size();
-		System.out.println(rootNodeSize);
 		assertTrue("Root node size is not three", rootNodeSize == 3);
 	}
 	
@@ -57,5 +54,17 @@ public class FunctionTreeTest {
 		List<FunctionNode> childrenNodes = tree.getRootNodes().get(1).getChildren();
 		int childrenNodeSize = childrenNodes.size();
 		assertTrue("Children node size for descend is not two", childrenNodeSize == 2);
+	}
+	
+	@Test
+	public void testDepthTwo()
+	{
+		List<FunctionNode> childrenNodes = tree.getRootNodes().get(1).getChildren().get(0).getChildren();
+		int childrenNodeSize = childrenNodes.size();
+		FunctionNode node = childrenNodes.get(0);
+		FunctionTokenSection data = node.getData();
+		FunctionToken token = data.getFunctions().get(0);
+		assertTrue("Children node size for depth two is not one", childrenNodeSize == 1);
+		assertTrue("Invalid data for depth-2-left node", token.getData().equals("some other data"));
 	}
 }

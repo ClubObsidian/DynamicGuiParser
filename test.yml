@@ -5,41 +5,46 @@ global-functions:
     functions:
     - "function"
 
-slots:
-  '0':
-    name: "Some name"
-    replacers:
-       '%test%': "This is some text"
-    functions:
-      load:
-        type: 
+'0':
+  name: "Some name"
+  replacers:
+     '%test%': "This is some text"
+  functions:
+    load:
+      type: 
+      - "load"
+      functions:
+      - "function: with data"
+      depth-1-load:
+        type:
         - "load"
         functions:
-        - "function: with data"
-        depth-1-load:
-          type:
-          - "load"
-          functions:
-          - "function: with other data"
-      leftclick:
+        - "function: with other data"
+    leftclick:
+      type:
+      - "left"
+      functions:
+      - "function"
+      depth-1-left:
         type:
         - "left"
         functions:
         - "function"
-        depth-1-left:
-          type:
+        depth-2-left:
+          type: 
           - "left"
           functions:
-          - "function"
-        depth-1-other-left:
-          type:
-          - "left"
-          functions:
-          - "function"
-      allclick:
+          - "function: some other data"
+      depth-1-other-left:
         type:
         - "left"
-        - "right"
-        - "middle" 
         functions:
         - "function"
+    allclick:
+      type:
+      - "left"
+      - "right"
+      - "middle" 
+      functions:
+      - "function"
+        

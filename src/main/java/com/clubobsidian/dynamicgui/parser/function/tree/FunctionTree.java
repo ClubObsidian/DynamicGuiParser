@@ -58,9 +58,7 @@ public class FunctionTree {
 		}
 		else 
 		{
-			System.out.println("args: " + args.length);
-			System.out.println("out of bound: " + functionData);
-			dat = args[1];
+			dat = args[1].trim();
 		}
 		if(args.length > 2)
 		{
