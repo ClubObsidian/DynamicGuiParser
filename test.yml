@@ -13,17 +13,10 @@ gui-functions:
     functions:
     - "function-2"
 
-global-functions:
-  function: #Fails on function fail, considered a global function, if you want bound to one slot put under own section
-    type: "fail"
-    fail-on: "function" #Can also be a list, if 'fail-on' is not specified runs for all.
-    functions:
-    - "function"
-
 '0':
   name: "Some name"
-  replacers:
-     '%test%': "This is some text"
+  macros:
+    '%test%': "This is some text"
   functions:
     load:
       type: 

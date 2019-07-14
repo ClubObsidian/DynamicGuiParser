@@ -30,9 +30,6 @@ public class GuiToken {
 		
 		ConfigurationSection guiFunctionsSection = section.getConfigurationSection("gui-functions");
 		this.guiFunctions = new FunctionTree(guiFunctionsSection);
-		
-		ConfigurationSection globalSection = section.getConfigurationSection("global-functions");
-		this.globalFunctions = new FunctionTree(globalSection);
 	}
 	
 	private void loadNpcs(ConfigurationSection section)
