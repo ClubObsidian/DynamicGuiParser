@@ -17,6 +17,7 @@ public class GuiToken {
 	private boolean closed;
 	private Map<String, List<Integer>> npcs;
 	private Map<Integer, SlotToken> slots;
+	private FunctionTree guiFunctions;
 	private FunctionTree globalFunctions;
 	public GuiToken(ConfigurationSection section)
 	{
@@ -26,6 +27,9 @@ public class GuiToken {
 		this.closed = section.getBoolean("close");
 		this.loadNpcs(section);
 		this.loadSlots(section);
+		
+		ConfigurationSection guiFunctionsSection = section.getConfigurationSection("gui-functions");
+		this.guiFunctions = new FunctionTree(guiFunctionsSection);
 		
 		ConfigurationSection globalSection = section.getConfigurationSection("global-functions");
 		this.globalFunctions = new FunctionTree(globalSection);
@@ -87,6 +91,11 @@ public class GuiToken {
 	public Map<Integer, SlotToken> getSlots()
 	{
 		return this.slots;
+	}
+	
+	public FunctionTree getGuiFunctions()
+	{
+		return this.guiFunctions;
 	}
 	
 	public FunctionTree getGlobalFunctions()
