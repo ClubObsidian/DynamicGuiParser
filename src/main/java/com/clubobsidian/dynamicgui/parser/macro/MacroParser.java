@@ -27,11 +27,7 @@ public class MacroParser {
 				Object value = next.getValue();
 				if(value instanceof String)
 				{
-					replace.replace(key, (String) value);
-				}
-				else
-				{
-					System.out.println("You cannot use list replacers in singular strings!");
+					replace = replace.replace(key, (String) value);
 				}
 			}
 		}
@@ -76,10 +72,15 @@ public class MacroParser {
 							
 							newList.add(firstLine);
 							
+							String ending = line.substring(endIndex);
+							String appended = ending;
 							if(listMacro.size() >= 2)
 							{
-								String ending = line.substring(endIndex);
-								String appended = listMacro.get(1) + ending;
+								appended = listMacro.get(1) + ending;
+							}
+							
+							if(appended.length() > 0)
+							{
 								newList.add(appended);
 							}
 							

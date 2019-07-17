@@ -8,7 +8,7 @@ npcs:
   - 77
 
 macros:
-  '%gui-test%': "This is some gui text"
+  '%gui-test%': "test gui title"
 
 functions:
   function:
@@ -18,15 +18,6 @@ functions:
 
 '0':
   name: "Some name"
-  macros:
-    '%test%': "This is some text"
-    '%multiline-test%':
-    - "Replace some text"
-    - "and some other text"
-  lore:
-  - "%test%"
-  - "%multiline-test% test"
-  - "%multiline-test%"
   functions:
     load:
       type: 
@@ -79,4 +70,30 @@ functions:
       type:
       - "left"
       functions:
-      - "function"    
+      - "function"
+'2': #Macro test
+  name: "%name-macro%"
+  macros:
+    '%name-macro%': "A name"
+    '%test%': "This is some text"
+    '%multiline-test%':
+    - "Replace some text"
+    - "and some other text"
+    - "with some other text"
+  lore:
+  - "%test%"
+  - "%multiline-test% test"
+  - "%multiline-test%"
+  - "not-a-macro"  
+'3': #Small multiline test  
+  macros:
+    '%multiline-test%':
+    - "Replace some text"
+  lore:
+  - "%multiline-test%test"
+'4': #Check for index out of bound multiline test
+  macros:
+    '%multiline-test%':
+    - "Replace some text"
+  lore:
+  - "%multiline-test%"

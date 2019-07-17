@@ -88,7 +88,7 @@ public class GuiTokenTest {
 	public void testSlots()
 	{
 		Map<Integer, SlotToken> slots = token.getSlots();
-		assertTrue("Slots size is not 2", slots.size() == 2);
+		assertTrue("Slots size is not 5", slots.size() == 5);
 	}
 	
 	@Test

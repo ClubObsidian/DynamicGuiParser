@@ -34,7 +34,7 @@ public class MacrosTokenTest {
 		File file = new File("test.yml");
 		Configuration config = Configuration.load(file);
 		ConfigurationSection section = config
-				.getConfigurationSection("0")
+				.getConfigurationSection("2")
 				.getConfigurationSection("macros");
 		
 		System.out.println(section.getKeys());
@@ -52,7 +52,7 @@ public class MacrosTokenTest {
 		List listMacro = ((List) secondMacro);
 		
 		assertTrue("Second line of slot macro's first line is not a string", listMacro.get(0) instanceof String);
-		assertTrue("Second line of slot macro's size is not 2", listMacro.size() == 2);
+		assertTrue("Second line of slot macro's size is not 3", listMacro.size() == 3);
 		
 	}
 	
