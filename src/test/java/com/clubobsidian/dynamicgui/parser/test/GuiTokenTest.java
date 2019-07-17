@@ -99,13 +99,4 @@ public class GuiTokenTest {
 		String functionName = data.getName();
 		assertTrue("Function name is not function2", functionName.equals("function2"));
 	}
-	
-	@Test
-	public void testGlobalFunctions()
-	{
-		FunctionTree globalFunctions = token.getGlobalFunctions();
-		List<FunctionNode> children = globalFunctions.getRootNodes();
-		int childrenSize = children.size();
-		assertTrue("Global functions did not load in, size is not 1", childrenSize == 1);
-	}
 }

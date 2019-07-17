@@ -33,7 +33,6 @@ public class GuiToken {
 	private Map<String, List<Integer>> npcs;
 	private Map<Integer, SlotToken> slots;
 	private FunctionTree guiFunctions;
-	private FunctionTree globalFunctions;
 	public GuiToken(ConfigurationSection section)
 	{
 		this.title = section.getString("title");
@@ -108,10 +107,5 @@ public class GuiToken {
 	public FunctionTree getGuiFunctions()
 	{
 		return this.guiFunctions;
-	}
-	
-	public FunctionTree getGlobalFunctions()
-	{
-		return this.globalFunctions;
 	}
 }
