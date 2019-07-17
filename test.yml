@@ -23,6 +23,10 @@ functions:
     '%multiline-test%':
     - "Replace some text"
     - "and some other text"
+  lore:
+  - "%test%"
+  - "%multiline-test% test"
+  - "%multiline-test%"
   functions:
     load:
       type: 
