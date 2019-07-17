@@ -32,7 +32,7 @@ public class GuiToken {
 	private boolean closed;
 	private Map<String, List<Integer>> npcs;
 	private Map<Integer, SlotToken> slots;
-	private FunctionTree guiFunctions;
+	private FunctionTree functions;
 	public GuiToken(ConfigurationSection section)
 	{
 		this.title = section.getString("title");
@@ -42,8 +42,8 @@ public class GuiToken {
 		this.loadNpcs(section);
 		this.loadSlots(section);
 		
-		ConfigurationSection guiFunctionsSection = section.getConfigurationSection("gui-functions");
-		this.guiFunctions = new FunctionTree(guiFunctionsSection);
+		ConfigurationSection guiFunctionsSection = section.getConfigurationSection("functions");
+		this.functions = new FunctionTree(guiFunctionsSection);
 	}
 	
 	private void loadNpcs(ConfigurationSection section)
@@ -104,8 +104,8 @@ public class GuiToken {
 		return this.slots;
 	}
 	
-	public FunctionTree getGuiFunctions()
+	public FunctionTree getFunctions()
 	{
-		return this.guiFunctions;
+		return this.functions;
 	}
 }

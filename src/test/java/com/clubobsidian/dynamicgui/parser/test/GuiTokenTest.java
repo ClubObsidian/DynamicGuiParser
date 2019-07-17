@@ -93,7 +93,7 @@ public class GuiTokenTest {
 	@Test
 	public void testGuiFunctions()
 	{
-		FunctionTree tree = token.getGuiFunctions();
+		FunctionTree tree = token.getFunctions();
 		FunctionNode node = tree.getRootNodes().get(0);
 		FunctionData data = node.getToken().getFunctions().get(0);
 		String functionName = data.getName();
