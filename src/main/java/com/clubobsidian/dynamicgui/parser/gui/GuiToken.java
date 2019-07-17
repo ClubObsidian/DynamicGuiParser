@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -33,6 +34,7 @@ public class GuiToken {
 	private Map<String, List<Integer>> npcs;
 	private Map<Integer, SlotToken> slots;
 	private FunctionTree functions;
+	private MacroToken macroToken;
 	public GuiToken(ConfigurationSection section)
 	{
 		this.title = section.getString("title");
@@ -44,6 +46,9 @@ public class GuiToken {
 		
 		ConfigurationSection guiFunctionsSection = section.getConfigurationSection("functions");
 		this.functions = new FunctionTree(guiFunctionsSection);
+		
+		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
+		this.macroToken = new MacroToken(macrosSection);
 	}
 	
 	private void loadNpcs(ConfigurationSection section)
@@ -107,5 +112,10 @@ public class GuiToken {
 	public FunctionTree getFunctions()
 	{
 		return this.functions;
+	}
+	
+	public MacroToken getMacroToken()
+	{
+		return this.macroToken;
 	}
 }

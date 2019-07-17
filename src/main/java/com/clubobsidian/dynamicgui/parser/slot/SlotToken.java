@@ -16,6 +16,7 @@
 package com.clubobsidian.dynamicgui.parser.slot;
 
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class SlotToken {
@@ -27,6 +28,7 @@ public class SlotToken {
 	private byte data;
 	
 	private FunctionTree functionTree;
+	private MacroToken macroToken;
 	
 	public SlotToken(ConfigurationSection section)
 	{
@@ -43,6 +45,9 @@ public class SlotToken {
 		
 		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
 		this.functionTree = new FunctionTree(functionsSection);
+		
+		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
+		this.macroToken = new MacroToken(macrosSection);
 	}
 	
 	public String getIcon()
@@ -73,5 +78,10 @@ public class SlotToken {
 	public FunctionTree getFunctionTree()
 	{
 		return this.functionTree;
+	}
+	
+	public MacroToken getMacroToken()
+	{
+		return this.macroToken;
 	}
 }

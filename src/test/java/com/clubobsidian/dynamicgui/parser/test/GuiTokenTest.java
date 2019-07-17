@@ -29,6 +29,7 @@ import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.parser.gui.GuiMode;
 import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
 
@@ -98,5 +99,12 @@ public class GuiTokenTest {
 		FunctionData data = node.getToken().getFunctions().get(0);
 		String functionName = data.getName();
 		assertTrue("Function name is not function2", functionName.equals("function2"));
+	}
+	
+	@Test
+	public void testMacroToken()
+	{
+		MacroToken macroToken = token.getMacroToken();
+		assertTrue("Macro token was not initialized", macroToken != null);
 	}
 }

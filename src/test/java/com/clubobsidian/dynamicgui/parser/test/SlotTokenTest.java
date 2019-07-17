@@ -23,6 +23,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
@@ -81,5 +82,12 @@ public class SlotTokenTest {
 		FunctionTree tree = token.getFunctionTree();
 		int nodeSize = tree.getRootNodes().size();
 		assertTrue("Node were not parsed for the function tree", nodeSize == 1);
+	}
+	
+	@Test
+	public void testMacroToken()
+	{
+		MacroToken macroToken = token.getMacroToken();
+		assertTrue("Macro token was not initialized", macroToken != null);
 	}
 }
