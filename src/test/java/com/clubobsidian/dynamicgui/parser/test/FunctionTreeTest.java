@@ -138,7 +138,7 @@ public class FunctionTreeTest {
 		
 		FunctionNode node = tree.getRootNodes().get(1);
 		FunctionToken token = node.getToken();
-		FunctionData data = token.getFailOn().get(0);
+		FunctionData data = token.getFailOnFunctions().get(0);
 		String functionName = data.getName();
 		
 		assertTrue("Function normalization failed, function is not 'onfailfunction'", functionName.equals("onfailfunction"));
@@ -155,7 +155,7 @@ public class FunctionTreeTest {
 		
 		FunctionNode node = tree.getRootNodes().get(2);
 		FunctionToken token = node.getToken();
-		FunctionData data = token.getFailOn().get(0);
+		FunctionData data = token.getFailOnFunctions().get(0);
 		String functionName = data.getName();
 		
 		assertTrue("Function normalization failed, function is not 'onfailfunctionstring'", functionName.equals("onfailfunctionstring"));
