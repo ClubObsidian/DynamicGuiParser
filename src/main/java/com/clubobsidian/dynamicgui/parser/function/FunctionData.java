@@ -19,8 +19,8 @@ import com.clubobsidian.fuzzutil.StringFuzz;
 
 public class FunctionData {
 
-	private String name;
-	private String data;
+	private final String name;
+	private final String data;
 	public FunctionData(String name, String data)
 	{
 		this.name = StringFuzz.normalize(name);

@@ -15,12 +15,14 @@
  */
 package com.clubobsidian.dynamicgui.parser.gui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
@@ -34,10 +36,26 @@ public class GuiToken {
 	private Map<String, List<Integer>> npcs;
 	private Map<Integer, SlotToken> slots;
 	private FunctionTree functions;
-	private MacroToken macroToken;
+	private List<MacroToken> macroTokens;
 	public GuiToken(ConfigurationSection section)
 	{
-		this.title = section.getString("title");
+		this(section, new ArrayList<MacroToken>());
+	}
+	
+	public GuiToken(ConfigurationSection section, List<MacroToken> macroTokens)
+	{
+		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
+		this.macroTokens = new ArrayList<MacroToken>();
+		this.macroTokens.add(new MacroToken(macrosSection));
+		
+		for(MacroToken token : macroTokens)
+		{
+			this.macroTokens.add(token);
+		}
+		
+		MacroParser parser = new MacroParser(macroTokens);
+		
+		this.title = parser.parseStringMacros(section.getString("title"));
 		this.rows = section.getInteger("rows");
 		this.mode = GuiMode.valueOf(section.getString("mode").toUpperCase());
 		this.closed = section.getBoolean("close");
@@ -45,10 +63,8 @@ public class GuiToken {
 		this.loadSlots(section);
 		
 		ConfigurationSection guiFunctionsSection = section.getConfigurationSection("functions");
-		this.functions = new FunctionTree(guiFunctionsSection);
+		this.functions = new FunctionTree(guiFunctionsSection, this.macroTokens);
 		
-		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
-		this.macroToken = new MacroToken(macrosSection);
 	}
 	
 	private void loadNpcs(ConfigurationSection section)
@@ -62,6 +78,7 @@ public class GuiToken {
 		}
 	}
 	
+	
 	private void loadSlots(ConfigurationSection section)
 	{
 		this.slots = new LinkedHashMap<>();
@@ -73,7 +90,7 @@ public class GuiToken {
 			ConfigurationSection slotSection = section.getConfigurationSection(String.valueOf(i));
 			if(!slotSection.isEmpty())
 			{
-				SlotToken token = new SlotToken(slotSection);
+				SlotToken token = new SlotToken(slotSection, this.macroTokens);
 				this.slots.put(i, token);
 			}
 		}
@@ -114,8 +131,8 @@ public class GuiToken {
 		return this.functions;
 	}
 	
-	public MacroToken getMacroToken()
+	public List<MacroToken> getMacroTokens()
 	{
-		return this.macroToken;
+		return this.macroTokens;
 	}
 }

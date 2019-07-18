@@ -28,6 +28,7 @@ import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -161,4 +162,10 @@ public class FunctionTreeTest {
 		assertTrue("Function normalization failed, function is not 'onfailfunctionstring'", functionName.equals("onfailfunctionstring"));
 	}
 	
+	@Test
+	public void testMacroTokens()
+	{
+		List<MacroToken> tokens = tree.getMacroTokens();
+		assertTrue("MacroToken's for functions should not be null", tokens != null);
+	}
 }

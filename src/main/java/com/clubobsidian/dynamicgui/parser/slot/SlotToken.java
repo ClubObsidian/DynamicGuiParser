@@ -15,7 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.parser.slot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -28,26 +32,35 @@ public class SlotToken {
 	private byte data;
 	
 	private FunctionTree functionTree;
-	private MacroToken macroToken;
+	private List<MacroToken> macroTokens;
 	
 	public SlotToken(ConfigurationSection section)
 	{
-		this.parse(section);
+		this(section, new ArrayList<MacroToken>());
 	}
 	
-	private void parse(ConfigurationSection section)
+	public SlotToken(ConfigurationSection section, List<MacroToken> macroTokens)
 	{
-		this.icon = section.getString("icon");
-		this.name = section.getString("name");
-		this.nbt = section.getString("nbt");
+		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
+		this.macroTokens = new ArrayList<>();
+		this.macroTokens.add(new MacroToken(macrosSection));
+		
+		for(MacroToken macroToken : macroTokens)
+		{
+			this.macroTokens.add(macroToken);
+		}
+		
+		MacroParser parser = new MacroParser(this.macroTokens);
+		
+		this.icon = parser.parseStringMacros(section.getString("icon"));
+		this.name = parser.parseStringMacros(section.getString("name"));
+		this.nbt = parser.parseStringMacros(section.getString("nbt"));
 		this.closed = section.getBoolean("close");
 		this.data = (byte) section.getInteger("data");
 		
 		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
-		this.functionTree = new FunctionTree(functionsSection);
+		this.functionTree = new FunctionTree(functionsSection, this.macroTokens);
 		
-		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
-		this.macroToken = new MacroToken(macrosSection);
 	}
 	
 	public String getIcon()
@@ -80,8 +93,8 @@ public class SlotToken {
 		return this.functionTree;
 	}
 	
-	public MacroToken getMacroToken()
+	public List<MacroToken> getMacroTokens()
 	{
-		return this.macroToken;
+		return this.macroTokens;
 	}
 }

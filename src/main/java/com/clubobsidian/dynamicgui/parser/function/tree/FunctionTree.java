@@ -21,13 +21,22 @@ import java.util.List;
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class FunctionTree {
 
-	public List<FunctionNode> rootNodes;
+	private List<FunctionNode> rootNodes;
+	private List<MacroToken> macroTokens;
 	public FunctionTree(ConfigurationSection section)
 	{
+		this(section, new ArrayList<MacroToken>());
+	}
+	
+	public FunctionTree(ConfigurationSection section, List<MacroToken> macroTokens)
+	{
+		this.macroTokens = macroTokens;
 		this.rootNodes = new ArrayList<FunctionNode>();
 		this.parseNodes(section);
 	}
@@ -35,6 +44,11 @@ public class FunctionTree {
 	public List<FunctionNode> getRootNodes()
 	{
 		return this.rootNodes;
+	}
+	
+	public List<MacroToken> getMacroTokens()
+	{
+		return this.macroTokens;
 	}
 	
 	private void parseNodes(ConfigurationSection section)
@@ -80,10 +94,13 @@ public class FunctionTree {
 		return ar;	
 	}
 	
-	private List<FunctionData> parseFunctionData(List<String> tokens)
+	private List<FunctionData> parseFunctionData(final List<String> tokens)
 	{
+		MacroParser parser = new MacroParser(this.macroTokens);
+		List<String> parsedTokens = parser.parseListMacros(tokens);
+		
 		List<FunctionData> functionTokens = new ArrayList<FunctionData>();
-		for(String token : tokens)
+		for(String token : parsedTokens)
 		{
 			String[] parsedFunctionData = this.parseFunctionData(token);
 			String functionName = parsedFunctionData[0];

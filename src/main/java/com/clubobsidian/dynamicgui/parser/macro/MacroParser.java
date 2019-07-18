@@ -16,6 +16,9 @@ public class MacroParser {
 	
 	public String parseStringMacros(final String replaceIn)
 	{
+		if(replaceIn == null)
+			return null;
+		
 		String replace = replaceIn;
 		for(MacroToken token : this.tokens)
 		{

@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.parser.test;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
 import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
+import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class GuiTokenTest {
 
@@ -104,7 +106,27 @@ public class GuiTokenTest {
 	@Test
 	public void testMacroToken()
 	{
-		MacroToken macroToken = token.getMacroToken();
+		MacroToken macroToken = token.getMacroTokens().get(0);
 		assertTrue("Macro token was not initialized", macroToken != null);
+	}
+	
+	@Test
+	public void testExternalMacroToken()
+	{
+		File externalFile = new File("external.yml");
+		Configuration externalConfig = Configuration.load(externalFile);
+		ConfigurationSection externalMacros = externalConfig.getConfigurationSection("macros");
+		MacroToken externalToken = new MacroToken(externalMacros);
+		
+		List<MacroToken> tokens = new ArrayList<>();
+		tokens.add(externalToken);
+		
+		File textFile = new File("external-test.yml");
+		Configuration config = Configuration.load(textFile);
+		GuiToken token = new GuiToken(config, tokens);
+		
+		String title = token.getTitle();
+		
+		assertTrue("External gui test's title is not 'test gui title'", title.equals("test gui title"));
 	}
 }

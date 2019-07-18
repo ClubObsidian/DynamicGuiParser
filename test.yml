@@ -8,7 +8,7 @@ npcs:
   - 77
 
 macros:
-  '%gui-test%': "test gui title"
+  '%gui-test2%': "test gui title"
 
 functions:
   function:
