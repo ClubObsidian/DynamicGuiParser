@@ -97,3 +97,21 @@ functions:
     - "Replace some text"
   lore:
   - "%multiline-test%"
+  functions: #Fail functions parsing test
+    function:
+      type:
+      - "left"
+      functions:
+      - "function"
+    function-fail:
+      type:
+      - "fail"
+      functions:
+      - "function"
+      fail-on:
+        - "on-fail-function"
+    function-fail-string:
+      type: "fail"
+      functions:
+      - "function"
+      fail-on: "on-fail-function-string"

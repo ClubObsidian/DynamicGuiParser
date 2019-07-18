@@ -22,11 +22,13 @@ public class FunctionToken {
 	private String name;
 	private List<FunctionType> types;
 	private List<FunctionData> functions;
-	public FunctionToken(String name, List<FunctionType> types, List<FunctionData> functions)
+	private List<FunctionData> failOn;
+	public FunctionToken(String name, List<FunctionType> types, List<FunctionData> functions, List<FunctionData> failOn)
 	{
 		this.name = name;
 		this.types = types;
 		this.functions = functions;
+		this.failOn = failOn;
 	}
 	
 	public String getName()
@@ -42,5 +44,10 @@ public class FunctionToken {
 	public List<FunctionData> getFunctions()
 	{
 		return this.functions;
+	}
+	
+	public List<FunctionData> getFailOn()
+	{
+		return this.failOn;
 	}
 }

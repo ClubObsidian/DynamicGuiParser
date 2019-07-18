@@ -126,4 +126,39 @@ public class FunctionTreeTest {
 		String functionName = data.getName();
 		assertTrue("Function normalization failed, function is not 'functiontonormalize'", functionName.equals("functiontonormalize"));
 	}
+	
+	@Test
+	public void testFailFunctionsList()
+	{
+		File testFile = new File("test.yml");
+		Configuration config = Configuration.load(testFile);
+		ConfigurationSection firstSlotSection = config.getConfigurationSection("4");
+		ConfigurationSection functionSection = firstSlotSection.getConfigurationSection("functions");
+		FunctionTree tree = new FunctionTree(functionSection);
+		
+		FunctionNode node = tree.getRootNodes().get(1);
+		FunctionToken token = node.getToken();
+		FunctionData data = token.getFailOn().get(0);
+		String functionName = data.getName();
+		
+		assertTrue("Function normalization failed, function is not 'onfailfunction'", functionName.equals("onfailfunction"));
+	}
+	
+	@Test
+	public void testFailFunctionsString()
+	{
+		File testFile = new File("test.yml");
+		Configuration config = Configuration.load(testFile);
+		ConfigurationSection firstSlotSection = config.getConfigurationSection("4");
+		ConfigurationSection functionSection = firstSlotSection.getConfigurationSection("functions");
+		FunctionTree tree = new FunctionTree(functionSection);
+		
+		FunctionNode node = tree.getRootNodes().get(2);
+		FunctionToken token = node.getToken();
+		FunctionData data = token.getFailOn().get(0);
+		String functionName = data.getName();
+		
+		assertTrue("Function normalization failed, function is not 'onfailfunctionstring'", functionName.equals("onfailfunctionstring"));
+	}
+	
 }

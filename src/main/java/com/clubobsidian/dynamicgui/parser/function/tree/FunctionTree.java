@@ -80,7 +80,7 @@ public class FunctionTree {
 		return ar;	
 	}
 	
-	private List<FunctionData> parseTokens(List<String> tokens)
+	private List<FunctionData> parseFunctionData(List<String> tokens)
 	{
 		List<FunctionData> functionTokens = new ArrayList<FunctionData>();
 		for(String token : tokens)
@@ -107,9 +107,10 @@ public class FunctionTree {
 			
 			String name = rootKey;
 			List<FunctionType> types = this.parseTypes(rootSection.getStringList("type"));
-			List<FunctionData> functionTokens = this.parseTokens(rootSection.getStringList("functions"));
+			List<FunctionData> functionTokens = this.parseFunctionData(rootSection.getStringList("functions"));
+			List<FunctionData> failFunctions = this.parseFunctionData(rootSection.getStringList("fail-on"));
 			
-			FunctionToken data = new FunctionToken(name, types, functionTokens);
+			FunctionToken data = new FunctionToken(name, types, functionTokens, failFunctions);
 			FunctionNode childNode = new FunctionNode(depth, data);
 			
 			if(depth == 0)
