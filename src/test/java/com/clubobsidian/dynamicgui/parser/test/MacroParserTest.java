@@ -136,8 +136,6 @@ public class MacroParserTest {
 		
 		List<String> lore = fifth.getStringList("lore");
 		
-		String name = fifth.getString("name");
-		
 		MacroToken guiToken = new MacroToken(guiMacrosSection);
 		MacroToken fifthToken = new MacroToken(fithMacrosSection);
 		
@@ -150,6 +148,11 @@ public class MacroParserTest {
 		List<String> parsedLore = parser.parseListMacros(lore);
 		
 		assertTrue("Lore length is not 5'", parsedLore.size() == 5);
+		assertTrue("First line of lore is not 'not-a-macro'", parsedLore.get(0).equals("not-a-macro"));
+		assertTrue("Second line of lore is not 'Replace some text'", parsedLore.get(1).equals("Replace some text"));
+		assertTrue("Third line of lore is not 'and some other text'", parsedLore.get(2).equals("and some other text"));
+		assertTrue("Forth line of lore is not 'with some other text'", parsedLore.get(3).equals("with some other text"));
+		assertTrue("Fifth line of lore is not 'still-not-a-macro'", parsedLore.get(4).equals("still-not-a-macro"));
 	}
 	
 	
