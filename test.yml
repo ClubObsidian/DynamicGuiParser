@@ -121,7 +121,7 @@ functions:
       fail-on: "on-fail-function-string"
 '5':
   lore:
-  - "%chain-macro%"
+  - "%chain-macro% test"
   macros:
     '%multiline-test%':
     - "Replace some text"

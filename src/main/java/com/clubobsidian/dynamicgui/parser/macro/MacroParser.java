@@ -98,7 +98,6 @@ public class MacroParser {
 
 							for(int j = 2; j < listMacro.size(); j++)
 							{
-								System.out.println(i);
 								i++;
 								newList.add(i, listMacro.get(j));
 							}
