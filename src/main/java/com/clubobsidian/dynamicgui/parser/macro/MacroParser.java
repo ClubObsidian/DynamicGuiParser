@@ -36,71 +36,77 @@ public class MacroParser {
 		}
 		return replace;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<String> parseListMacros(final List<String> replaceIn)
 	{
 		List<String> newList = new ArrayList<>();
-		
+
 		for(String line : replaceIn)
 		{
-			boolean hasMacro = false;
-			for(MacroToken token : this.tokens)
+			newList.add(line);
+		}
+
+		for(MacroToken token : this.tokens)
+		{
+
+			Iterator<Entry<String, Object>> it = token.getMacros().entrySet().iterator();
+			while(it.hasNext())
 			{
-				Iterator<Entry<String, Object>> it = token.getMacros().entrySet().iterator();
-				while(it.hasNext())
+				Entry<String, Object> next = it.next();
+				String key = next.getKey();
+
+				for(int i = 0; i < newList.size(); i++)
 				{
-					Entry<String, Object> next = it.next();
-					String key = next.getKey();
-					
+					String line = newList.get(i);
 					if(line.contains(key))
 					{
-						hasMacro = true;
 						Object value = next.getValue();
 						if(value instanceof String)
 						{
 							String stringMacro = (String) value;
-							newList.add(line.replace(key, stringMacro));
+							newList.remove(i);
+							newList.add(i, line.replace(key, stringMacro));
 						}
 						else
 						{
 							List<String> listMacro = (List<String>) value;
-							
+
 							int startIndex = line.indexOf(key);
 							int endIndex = startIndex + key.length();
-							
+
 							String macro = listMacro.get(0);
 							String firstLine = line.substring(0, endIndex)
 									.replace(key, macro);
-							
-							newList.add(firstLine);
-							
+
+							newList.remove(i);
+
+							newList.add(i, firstLine);
+
 							String ending = line.substring(endIndex);
 							String appended = ending;
 							if(listMacro.size() >= 2)
 							{
 								appended = listMacro.get(1) + ending;
 							}
-							
+
 							if(appended.length() > 0)
 							{
-								newList.add(appended);
+								i++;
+								newList.add(i, appended);
 							}
-							
-							for(int i = 2; i < listMacro.size(); i++)
+
+							for(int j = 2; j < listMacro.size(); j++)
 							{
-								newList.add(listMacro.get(i));
+								System.out.println(i);
+								i++;
+								newList.add(i, listMacro.get(j));
 							}
 						}
 					}
 				}
 			}
-			if(!hasMacro)
-			{
-				newList.add(line);
-			}
 		}
-		
 		return newList;
 	}
 }

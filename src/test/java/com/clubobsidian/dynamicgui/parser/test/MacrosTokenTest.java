@@ -24,7 +24,7 @@ public class MacrosTokenTest {
 		MacroToken token = new MacroToken(section);
 		Map<String, Object> macros = token.getMacros();
 		
-		assertTrue("Macros did not load in for gui macros, size is not 1", macros.size() == 1);
+		assertTrue("Macros did not load in for gui macros, size is not 2", macros.size() == 2);
 	}
 	
 	@Test

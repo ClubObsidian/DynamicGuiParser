@@ -9,6 +9,10 @@ npcs:
 
 macros:
   '%gui-test2%': "test gui title"
+  '%chain-macro%':
+  - "not-a-macro"
+  - "%multiline-test%"
+  - "still-not-a-macro"
 
 functions:
   function:
@@ -115,3 +119,11 @@ functions:
       functions:
       - "function"
       fail-on: "on-fail-function-string"
+'5':
+  lore:
+  - "%chain-macro%"
+  macros:
+    '%multiline-test%':
+    - "Replace some text"
+    - "and some other text"
+    - "with some other text"

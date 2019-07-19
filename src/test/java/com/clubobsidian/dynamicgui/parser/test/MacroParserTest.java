@@ -35,7 +35,9 @@ public class MacroParserTest {
 		
 		List<String> newLore = parser.parseListMacros(lore);
 		
-		assertTrue("New lore size is not 68", newLore.size() == 8);
+		System.out.println("newLore:" + newLore.toString());
+		
+		assertTrue("New lore size is not 8", newLore.size() == 8);
 		assertTrue("First line is not 'This is some gui text'", newLore.get(0).equals("This is some text"));
 		assertTrue("Second line is not 'Replace some text'", newLore.get(1).equals("Replace some text"));
 		assertTrue("Third line is not 'and some other text test'", newLore.get(2).equals("and some other text test"));
@@ -66,6 +68,8 @@ public class MacroParserTest {
 		
 		List<String> newLore = parser.parseListMacros(lore);
 		
+		System.out.println(newLore.toString());
+		
 		assertTrue("Size of new lore is not 2", newLore.size() == 2);
 		assertTrue("First line is not 'Replace some text", newLore.get(0).equals("Replace some text"));
 		assertTrue("Second line is not 'test'", newLore.get(1).equals("test"));
@@ -93,7 +97,6 @@ public class MacroParserTest {
 		
 		System.out.println("New lore: " + newLore + " Size: " + newLore.size());
 		
-		assertTrue("Size of new lore is not 1", newLore.size() == 1);
 		assertTrue("First line is not 'Replace some text", newLore.get(0).equals("Replace some text"));
 
 	}
@@ -120,6 +123,35 @@ public class MacroParserTest {
 		
 		assertTrue("New name is not 'A name'", newName.equals("A name"));
 	}
+	
+	@Test
+	public void testMacroChaining()
+	{
+		File test = new File("test.yml");
+		Configuration config = Configuration.load(test);
+		
+		ConfigurationSection fifth = config.getConfigurationSection("5");
+		ConfigurationSection fithMacrosSection = fifth.getConfigurationSection("macros");
+		ConfigurationSection guiMacrosSection = config.getConfigurationSection("macros");
+		
+		List<String> lore = fifth.getStringList("lore");
+		
+		String name = fifth.getString("name");
+		
+		MacroToken guiToken = new MacroToken(guiMacrosSection);
+		MacroToken fifthToken = new MacroToken(fithMacrosSection);
+		
+		List<MacroToken> tokens = new ArrayList<>();
+		tokens.add(guiToken);
+		tokens.add(fifthToken);
+		
+		MacroParser parser = new MacroParser(tokens);
+		
+		List<String> parsedLore = parser.parseListMacros(lore);
+		
+		assertTrue("Lore length is not 5'", parsedLore.size() == 5);
+	}
+	
 	
 	
 }
