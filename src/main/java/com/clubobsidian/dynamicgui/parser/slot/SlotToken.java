@@ -56,11 +56,27 @@ public class SlotToken {
 		this.name = parser.parseStringMacros(section.getString("name"));
 		this.nbt = parser.parseStringMacros(section.getString("nbt"));
 		this.closed = section.getBoolean("close");
-		this.data = (byte) section.getInteger("data");
+		
+		this.data = this.parseData(parser, section);
 		
 		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
 		this.functionTree = new FunctionTree(functionsSection, this.macroTokens);
 		
+	}
+	
+	private byte parseData(MacroParser parser, ConfigurationSection section)
+	{
+		String stringData = parser.parseStringMacros(section.getString("data"));
+		
+		try
+		{
+			byte bytes = Byte.parseByte(stringData);
+			return bytes;
+		}
+		catch(Exception ex)
+		{
+			return 0;
+		}
 	}
 	
 	public String getIcon()

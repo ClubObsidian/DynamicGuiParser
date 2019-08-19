@@ -59,12 +59,31 @@ public class FunctionTree {
 	
 	private List<FunctionType> parseTypes(List<String> types)
 	{
+		MacroParser parser = new MacroParser(this.macroTokens);
+		types = parser.parseListMacros(types);
 		List<FunctionType> typesList = new ArrayList<>();
 		for(String type : types)
 		{
-			typesList.add(FunctionType.valueOf(type.toUpperCase()));
+			FunctionType parsedType = this.parseType(type);
+			if(parsedType == null)
+				continue; //TODO - warn
+			
+			typesList.add(parsedType);
 		}
 		return typesList;
+	}
+	
+	private FunctionType parseType(String type)
+	{
+		try
+		{
+			FunctionType functionType = FunctionType.valueOf(type.toUpperCase());
+			return functionType;
+		}
+		catch(Exception ex)
+		{
+			return null;
+		}
 	}
 	
 	private String[] parseFunctionData(String functionData)

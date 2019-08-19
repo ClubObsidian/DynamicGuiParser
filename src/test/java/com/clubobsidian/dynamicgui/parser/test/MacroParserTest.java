@@ -156,7 +156,4 @@ public class MacroParserTest {
 		assertTrue("Forth line of lore is not 'with some other text'", parsedLore.get(3).equals("with some other text"));
 		assertTrue("Fifth line of lore is not 'still-not-a-macro'", parsedLore.get(4).equals("still-not-a-macro"));
 	}
-	
-	
-	
 }
