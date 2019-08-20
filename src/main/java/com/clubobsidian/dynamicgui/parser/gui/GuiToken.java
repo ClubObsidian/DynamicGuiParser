@@ -28,15 +28,15 @@ import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class GuiToken {
-
+	
 	private String title;
 	private int rows;
 	private GuiMode mode;
 	private boolean closed;
 	private Map<String, List<Integer>> npcs;
 	private Map<Integer, SlotToken> slots;
+	private MacroParser macroParser;
 	private FunctionTree functions;
-	private List<MacroToken> macroTokens;
 	public GuiToken(ConfigurationSection section)
 	{
 		this(section, new ArrayList<MacroToken>());
@@ -44,18 +44,18 @@ public class GuiToken {
 	
 	public GuiToken(ConfigurationSection section, List<MacroToken> macroTokens)
 	{
+		List<MacroToken> copyMacroTokens = new ArrayList<MacroToken>();
 		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
-		this.macroTokens = new ArrayList<MacroToken>();
-		this.macroTokens.add(new MacroToken(macrosSection));
+		copyMacroTokens.add(new MacroToken(macrosSection));
 		
 		for(MacroToken token : macroTokens)
 		{
-			this.macroTokens.add(token);
+			copyMacroTokens.add(token);
 		}
 		
-		MacroParser parser = new MacroParser(macroTokens);
+		this.macroParser = new MacroParser(copyMacroTokens);
 		
-		this.title = parser.parseStringMacros(section.getString("title"));
+		this.title = macroParser.parseStringMacros(section.getString("title"));
 		this.rows = section.getInteger("rows");
 		this.mode = GuiMode.valueOf(section.getString("mode").toUpperCase());
 		this.closed = section.getBoolean("close");
@@ -63,7 +63,7 @@ public class GuiToken {
 		this.loadSlots(section);
 		
 		ConfigurationSection guiFunctionsSection = section.getConfigurationSection("functions");
-		this.functions = new FunctionTree(guiFunctionsSection, this.macroTokens);
+		this.functions = new FunctionTree(guiFunctionsSection, this.macroParser);
 		
 	}
 	
@@ -90,7 +90,7 @@ public class GuiToken {
 			ConfigurationSection slotSection = section.getConfigurationSection(String.valueOf(i));
 			if(!slotSection.isEmpty())
 			{
-				SlotToken token = new SlotToken(slotSection, this.macroTokens);
+				SlotToken token = new SlotToken(slotSection, this.macroParser.getTokens());
 				this.slots.put(i, token);
 			}
 		}
@@ -131,8 +131,8 @@ public class GuiToken {
 		return this.functions;
 	}
 	
-	public List<MacroToken> getMacroTokens()
+	public MacroParser getMacroParser()
 	{
-		return this.macroTokens;
+		return this.macroParser;
 	}
 }

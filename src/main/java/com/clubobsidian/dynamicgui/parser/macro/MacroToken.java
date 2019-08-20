@@ -19,7 +19,7 @@ public class MacroToken {
 		this.macros = new LinkedHashMap<>();
 		for(String key : section.getKeys())
 		{
-			macros.put(key, section.get(key));
+			this.macros.put(key, section.get(key));
 		}
 	}
 	

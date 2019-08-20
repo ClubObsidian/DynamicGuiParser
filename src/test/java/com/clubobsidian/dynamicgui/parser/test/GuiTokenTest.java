@@ -106,7 +106,7 @@ public class GuiTokenTest {
 	@Test
 	public void testMacroToken()
 	{
-		MacroToken macroToken = token.getMacroTokens().get(0);
+		MacroToken macroToken = token.getMacroParser().getTokens().get(0);
 		assertTrue("Macro token was not initialized", macroToken != null);
 	}
 	

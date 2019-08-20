@@ -24,16 +24,14 @@ import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class SlotToken {
-
+	
 	private String icon;
 	private String name;
 	private String nbt;
 	private boolean closed;
 	private byte data;
-	
+	private MacroParser macroParser;
 	private FunctionTree functionTree;
-	private List<MacroToken> macroTokens;
-	
 	public SlotToken(ConfigurationSection section)
 	{
 		this(section, new ArrayList<MacroToken>());
@@ -41,26 +39,28 @@ public class SlotToken {
 	
 	public SlotToken(ConfigurationSection section, List<MacroToken> macroTokens)
 	{
+		List<MacroToken> copyMacroTokens = new ArrayList<>();
+		
 		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
-		this.macroTokens = new ArrayList<>();
-		this.macroTokens.add(new MacroToken(macrosSection));
+		copyMacroTokens = new ArrayList<>();
+		copyMacroTokens.add(new MacroToken(macrosSection));
 		
 		for(MacroToken macroToken : macroTokens)
 		{
-			this.macroTokens.add(macroToken);
+			copyMacroTokens.add(macroToken);
 		}
 		
-		MacroParser parser = new MacroParser(this.macroTokens);
+		this.macroParser = new MacroParser(copyMacroTokens);
 		
-		this.icon = parser.parseStringMacros(section.getString("icon"));
-		this.name = parser.parseStringMacros(section.getString("name"));
-		this.nbt = parser.parseStringMacros(section.getString("nbt"));
+		this.icon = macroParser.parseStringMacros(section.getString("icon"));
+		this.name = macroParser.parseStringMacros(section.getString("name"));
+		this.nbt = macroParser.parseStringMacros(section.getString("nbt"));
 		this.closed = section.getBoolean("close");
 		
-		this.data = this.parseData(parser, section);
+		this.data = this.parseData(macroParser, section);
 		
 		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
-		this.functionTree = new FunctionTree(functionsSection, this.macroTokens);
+		this.functionTree = new FunctionTree(functionsSection, this.macroParser);
 		
 	}
 	
@@ -109,8 +109,8 @@ public class SlotToken {
 		return this.functionTree;
 	}
 	
-	public List<MacroToken> getMacroTokens()
+	public MacroParser getMacroParser()
 	{
-		return this.macroTokens;
+		return this.macroParser;
 	}
 }

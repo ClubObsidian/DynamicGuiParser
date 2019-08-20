@@ -165,7 +165,7 @@ public class FunctionTreeTest {
 	@Test
 	public void testMacroTokens()
 	{
-		List<MacroToken> tokens = tree.getMacroTokens();
+		List<MacroToken> tokens = tree.getMacroParser().getTokens();
 		assertTrue("MacroToken's for functions should not be null", tokens != null);
 	}
 }

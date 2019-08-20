@@ -1,6 +1,7 @@
 package com.clubobsidian.dynamicgui.parser.macro;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -11,7 +12,12 @@ public class MacroParser {
 	
 	public MacroParser(List<MacroToken> tokens)
 	{
-		this.tokens = tokens;
+		this.tokens = Collections.unmodifiableList(tokens);
+	}
+	
+	public List<MacroToken> getTokens()
+	{
+		return this.tokens;
 	}
 	
 	public String parseStringMacros(final String replaceIn)

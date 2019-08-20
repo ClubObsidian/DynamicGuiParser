@@ -28,16 +28,16 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 public class FunctionTree {
 
 	private List<FunctionNode> rootNodes;
-	private List<MacroToken> macroTokens;
+	private MacroParser macroParser;
 	public FunctionTree(ConfigurationSection section)
 	{
-		this(section, new ArrayList<MacroToken>());
+		this(section, new MacroParser(new ArrayList<MacroToken>()));
 	}
 	
-	public FunctionTree(ConfigurationSection section, List<MacroToken> macroTokens)
+	public FunctionTree(ConfigurationSection section, MacroParser macroParser)
 	{
-		this.macroTokens = macroTokens;
 		this.rootNodes = new ArrayList<FunctionNode>();
+		this.macroParser = macroParser;
 		this.parseNodes(section);
 	}
 	
@@ -46,9 +46,9 @@ public class FunctionTree {
 		return this.rootNodes;
 	}
 	
-	public List<MacroToken> getMacroTokens()
+	public MacroParser getMacroParser()
 	{
-		return this.macroTokens;
+		return this.macroParser;
 	}
 	
 	private void parseNodes(ConfigurationSection section)
@@ -58,9 +58,8 @@ public class FunctionTree {
 	}
 	
 	private List<FunctionType> parseTypes(List<String> types)
-	{
-		MacroParser parser = new MacroParser(this.macroTokens);
-		types = parser.parseListMacros(types);
+	{;
+		types = this.macroParser.parseListMacros(types);
 		List<FunctionType> typesList = new ArrayList<>();
 		for(String type : types)
 		{
@@ -115,8 +114,7 @@ public class FunctionTree {
 	
 	private List<FunctionData> parseFunctionData(final List<String> tokens)
 	{
-		MacroParser parser = new MacroParser(this.macroTokens);
-		List<String> parsedTokens = parser.parseListMacros(tokens);
+		List<String> parsedTokens = this.macroParser.parseListMacros(tokens);
 		
 		List<FunctionData> functionTokens = new ArrayList<FunctionData>();
 		for(String token : parsedTokens)
