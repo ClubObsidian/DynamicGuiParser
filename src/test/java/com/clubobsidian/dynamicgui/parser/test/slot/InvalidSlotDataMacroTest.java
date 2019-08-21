@@ -20,7 +20,7 @@ public class InvalidSlotDataMacroTest {
 		File file = new File(slotFolder, "invalid-slot-data-macro.yml");
 		Configuration config = Configuration.load(file);
 		ConfigurationSection section = config.getConfigurationSection("0");
-		SlotToken token = new SlotToken(section);
+		SlotToken token = new SlotToken(0, section);
 		byte data = token.getData();
 		assertTrue("Slot data was not parsed correctly, data is not 0", data == 0);
 	}

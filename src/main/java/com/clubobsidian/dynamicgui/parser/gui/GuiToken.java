@@ -90,7 +90,7 @@ public class GuiToken {
 			ConfigurationSection slotSection = section.getConfigurationSection(String.valueOf(i));
 			if(!slotSection.isEmpty())
 			{
-				SlotToken token = new SlotToken(slotSection, this.macroParser.getTokens());
+				SlotToken token = new SlotToken(i, slotSection, this.macroParser.getTokens());
 				this.slots.put(i, token);
 			}
 		}

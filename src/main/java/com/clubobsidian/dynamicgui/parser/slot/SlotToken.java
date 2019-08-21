@@ -25,6 +25,7 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class SlotToken {
 	
+	private int index;
 	private String icon;
 	private String name;
 	private String nbt;
@@ -32,12 +33,12 @@ public class SlotToken {
 	private byte data;
 	private MacroParser macroParser;
 	private FunctionTree functionTree;
-	public SlotToken(ConfigurationSection section)
+	public SlotToken(int index, ConfigurationSection section)
 	{
-		this(section, new ArrayList<MacroToken>());
+		this(index, section, new ArrayList<MacroToken>());
 	}
 	
-	public SlotToken(ConfigurationSection section, List<MacroToken> macroTokens)
+	public SlotToken(int index, ConfigurationSection section, List<MacroToken> macroTokens)
 	{
 		List<MacroToken> copyMacroTokens = new ArrayList<>();
 		
@@ -52,6 +53,7 @@ public class SlotToken {
 		
 		this.macroParser = new MacroParser(copyMacroTokens);
 		
+		this.index = index;
 		this.icon = macroParser.parseStringMacros(section.getString("icon"));
 		this.name = macroParser.parseStringMacros(section.getString("name"));
 		this.nbt = macroParser.parseStringMacros(section.getString("nbt"));
@@ -77,6 +79,11 @@ public class SlotToken {
 		{
 			return 0;
 		}
+	}
+	
+	public int getIndex()
+	{
+		return this.index;
 	}
 	
 	public String getIcon()

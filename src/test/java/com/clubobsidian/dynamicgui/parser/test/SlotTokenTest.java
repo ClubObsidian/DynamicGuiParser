@@ -38,7 +38,7 @@ public class SlotTokenTest {
 		File file = new File("test.yml");
 		Configuration config = Configuration.load(file);
 		ConfigurationSection section = config.getConfigurationSection("1");
-		token = new SlotToken(section);
+		token = new SlotToken(1, section);
 	}
 	
 	@Test

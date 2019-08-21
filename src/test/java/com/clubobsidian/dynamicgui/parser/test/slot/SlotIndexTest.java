@@ -10,18 +10,16 @@ import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
-public class ValidSlotDataMacroTest {
+public class SlotIndexTest {
 
-	
 	@Test
-	public void loadSlotToken()
+	public void testSlotIndex()
 	{
 		File slotFolder = new File("test", "slot");
-		File file = new File(slotFolder, "valid-slot-data-macro.yml");
+		File file = new File(slotFolder, "slot-index.yml");
 		Configuration config = Configuration.load(file);
-		ConfigurationSection section = config.getConfigurationSection("0");
-		SlotToken token = new SlotToken(0, section);
-		byte data = token.getData();
-		assertTrue("Slot data was not parsed correctly, data is not 1", data == 1);
+		ConfigurationSection section = config.getConfigurationSection("13");
+		SlotToken token = new SlotToken(13, section);
+		assertTrue("Slot index is not 13", token.getIndex() == 13);
 	}
 }

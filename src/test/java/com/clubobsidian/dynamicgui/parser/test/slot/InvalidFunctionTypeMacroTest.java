@@ -22,7 +22,7 @@ public class InvalidFunctionTypeMacroTest {
 		File file = new File(slotFolder, "invalid-function-type-macro.yml");
 		Configuration config = Configuration.load(file);
 		ConfigurationSection section = config.getConfigurationSection("0");
-		SlotToken token = new SlotToken(section);
+		SlotToken token = new SlotToken(0, section);
 		FunctionTree tree = token.getFunctionTree();
 		FunctionToken functionToken = tree.getRootNodes().get(0).getToken();
 		assertTrue("Function node parsed incorrect function type", functionToken.getTypes().size() == 1);
