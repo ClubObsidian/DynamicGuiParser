@@ -23,6 +23,7 @@ import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import com.clubobsidian.fuzzutil.StringFuzz;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class FunctionTree {
@@ -107,7 +108,7 @@ public class FunctionTree {
 				dat +=  ":" + args[i];
 		}
 		
-		ar[0] = args[0];
+		ar[0] = StringFuzz.normalize(args[0]);
 		ar[1] = dat;
 		return ar;	
 	}
