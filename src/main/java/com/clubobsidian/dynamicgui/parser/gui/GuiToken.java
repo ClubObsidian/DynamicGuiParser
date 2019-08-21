@@ -33,6 +33,7 @@ public class GuiToken {
 	private int rows;
 	private GuiMode mode;
 	private boolean closed;
+	private List<String> alias;
 	private Map<String, List<Integer>> npcs;
 	private Map<Integer, SlotToken> slots;
 	private MacroParser macroParser;
@@ -57,14 +58,25 @@ public class GuiToken {
 		
 		this.title = macroParser.parseStringMacros(section.getString("title"));
 		this.rows = section.getInteger("rows");
-		this.mode = GuiMode.valueOf(section.getString("mode").toUpperCase());
+		this.mode = this.parseMode(section.getString("mode"));
 		this.closed = section.getBoolean("close");
+		this.alias = section.getStringList("alias");
 		this.loadNpcs(section);
 		this.loadSlots(section);
 		
 		ConfigurationSection guiFunctionsSection = section.getConfigurationSection("functions");
 		this.functions = new FunctionTree(guiFunctionsSection, this.macroParser);
 		
+	}
+	
+	private GuiMode parseMode(String mode)
+	{
+		if(mode == null)
+		{
+			return GuiMode.SET;
+		}
+		
+		return GuiMode.valueOf(mode.toUpperCase());
 	}
 	
 	private void loadNpcs(ConfigurationSection section)
@@ -114,6 +126,11 @@ public class GuiToken {
 	public boolean isClosed()
 	{
 		return this.closed;
+	}
+	
+	public List<String> getAlias()
+	{
+		return this.alias;
 	}
 	
 	public Map<String, List<Integer>> getNpcs()
