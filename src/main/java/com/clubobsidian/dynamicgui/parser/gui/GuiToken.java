@@ -30,6 +30,7 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 public class GuiToken {
 	
 	private String title;
+	private String type;
 	private int rows;
 	private GuiMode mode;
 	private boolean closed;
@@ -58,6 +59,7 @@ public class GuiToken {
 		this.macroParser = new MacroParser(copyMacroTokens);
 		
 		this.title = macroParser.parseStringMacros(section.getString("title"));
+		this.type = this.parseType(section.getString("type"));
 		this.rows = section.getInteger("rows");
 		this.mode = this.parseMode(section.getString("mode"));
 		this.closed = section.getBoolean("close");
@@ -69,6 +71,15 @@ public class GuiToken {
 		ConfigurationSection guiFunctionsSection = section.getConfigurationSection("functions");
 		this.functions = new FunctionTree(guiFunctionsSection, this.macroParser);
 		
+	}
+	
+	public String parseType(String type)
+	{
+		if(type == null)
+		{
+			return "CHEST";
+		}
+		return type.toUpperCase();
 	}
 	
 	private GuiMode parseMode(String mode)
@@ -113,6 +124,11 @@ public class GuiToken {
 	public String getTitle()
 	{
 		return this.title;
+	}
+	
+	public String getType()
+	{
+		return this.type;
 	}
 	
 	public int getRows()

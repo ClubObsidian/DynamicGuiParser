@@ -15,8 +15,8 @@ public class InvalidAmountTest {
 	@Test
 	public void amountTest()
 	{
-		File slotFolder = new File("test", "slot");
-		File file = new File(slotFolder, "invalid-amount.yml");
+		File slotFolder = new File("test", "gui");
+		File file = new File(slotFolder, "type.yml");
 		Configuration config = Configuration.load(file);
 		ConfigurationSection section = config.getConfigurationSection("0");
 		SlotToken token = new SlotToken(0, section);

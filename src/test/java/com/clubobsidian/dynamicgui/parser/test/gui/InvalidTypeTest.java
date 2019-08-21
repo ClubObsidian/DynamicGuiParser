@@ -9,16 +9,16 @@ import org.junit.Test;
 import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
 import com.clubobsidian.wrappy.Configuration;
 
-public class AliasTest {
+public class InvalidTypeTest {
 
 	@Test
-	public void testAlias()
+	public void testType()
 	{
 		File slotFolder = new File("test", "gui");
-		File file = new File(slotFolder, "alias.yml");
+		File file = new File(slotFolder, "invalid-type.yml");
 		Configuration config = Configuration.load(file);
 		GuiToken token = new GuiToken(config);
-		String alias = token.getAlias().get(0);
-		assertTrue("Gui alias is not 'test'", alias.equals("test"));
+		String type = token.getType();
+		assertTrue("Gui type is not 'CHEST'", type.equals("CHEST"));
 	}
 }
