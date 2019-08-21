@@ -16,7 +16,7 @@ public class InvalidFunctionTypeMacroTest {
 
 	
 	@Test
-	public void loadSlotToken()
+	public void invalidFunctionTypeTest()
 	{
 		File slotFolder = new File("test", "slot");
 		File file = new File(slotFolder, "invalid-function-type-macro.yml");

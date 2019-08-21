@@ -31,6 +31,8 @@ public class SlotToken {
 	private String nbt;
 	private boolean closed;
 	private byte data;
+	private List<String> lore;
+	private List<String> enchants;
 	private MacroParser macroParser;
 	private FunctionTree functionTree;
 	public SlotToken(int index, ConfigurationSection section)
@@ -58,8 +60,9 @@ public class SlotToken {
 		this.name = macroParser.parseStringMacros(section.getString("name"));
 		this.nbt = macroParser.parseStringMacros(section.getString("nbt"));
 		this.closed = section.getBoolean("close");
-		
 		this.data = this.parseData(macroParser, section);
+		this.lore = section.getStringList("lore");
+		this.enchants = section.getStringList("enchants");
 		
 		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
 		this.functionTree = new FunctionTree(functionsSection, this.macroParser);
@@ -109,6 +112,16 @@ public class SlotToken {
 	public byte getData()
 	{
 		return this.data;
+	}
+	
+	public List<String> getLore()
+	{
+		return this.lore;
+	}
+	
+	public List<String> getEnchants()
+	{
+		return this.enchants;
 	}
 	
 	public FunctionTree getFunctionTree()

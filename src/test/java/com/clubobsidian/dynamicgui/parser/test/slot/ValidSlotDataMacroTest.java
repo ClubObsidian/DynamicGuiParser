@@ -14,7 +14,7 @@ public class ValidSlotDataMacroTest {
 
 	
 	@Test
-	public void loadSlotToken()
+	public void validSlotDataMacroTest()
 	{
 		File slotFolder = new File("test", "slot");
 		File file = new File(slotFolder, "valid-slot-data-macro.yml");

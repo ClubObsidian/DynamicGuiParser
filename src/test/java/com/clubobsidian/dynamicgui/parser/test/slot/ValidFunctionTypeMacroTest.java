@@ -17,7 +17,7 @@ public class ValidFunctionTypeMacroTest {
 
 	
 	@Test
-	public void loadSlotToken()
+	public void validFunctionTypeMacroTest()
 	{
 		File slotFolder = new File("test", "slot");
 		File file = new File(slotFolder, "valid-function-type-macro.yml");
