@@ -34,6 +34,7 @@ public class GuiToken {
 	private GuiMode mode;
 	private boolean closed;
 	private List<String> alias;
+	private List<String> locations;
 	private Map<String, List<Integer>> npcs;
 	private Map<Integer, SlotToken> slots;
 	private MacroParser macroParser;
@@ -61,6 +62,7 @@ public class GuiToken {
 		this.mode = this.parseMode(section.getString("mode"));
 		this.closed = section.getBoolean("close");
 		this.alias = section.getStringList("alias");
+		this.locations = section.getStringList("locations");
 		this.loadNpcs(section);
 		this.loadSlots(section);
 		
@@ -131,6 +133,11 @@ public class GuiToken {
 	public List<String> getAlias()
 	{
 		return this.alias;
+	}
+	
+	public List<String> getLocations()
+	{
+		return this.locations;
 	}
 	
 	public Map<String, List<Integer>> getNpcs()
