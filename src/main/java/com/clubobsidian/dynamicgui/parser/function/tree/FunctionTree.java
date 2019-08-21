@@ -15,6 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.parser.function.tree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,13 @@ import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.fuzzutil.StringFuzz;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
-public class FunctionTree {
+public class FunctionTree implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3700259615018247686L;
+	
 	private List<FunctionNode> rootNodes;
 	private MacroParser macroParser;
 	public FunctionTree(ConfigurationSection section)

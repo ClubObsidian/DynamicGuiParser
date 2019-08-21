@@ -15,10 +15,17 @@
  */
 package com.clubobsidian.dynamicgui.parser.function;
 
+import java.io.Serializable;
+
 import com.clubobsidian.fuzzutil.StringFuzz;
 
-public class FunctionData {
+public class FunctionData implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3386051776711859198L;
+	
 	private final String name;
 	private final String data;
 	public FunctionData(String name, String data)

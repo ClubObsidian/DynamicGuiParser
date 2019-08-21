@@ -15,6 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.parser.slot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,12 @@ import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
-public class SlotToken {
+public class SlotToken implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1898426889177654844L;
 	
 	private int index;
 	private int amount;

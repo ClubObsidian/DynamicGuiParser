@@ -15,10 +15,16 @@
  */
 package com.clubobsidian.dynamicgui.parser.function;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class FunctionToken {
+public class FunctionToken implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1157621981134953861L;
+	
 	private String name;
 	private List<FunctionType> types;
 	private List<FunctionData> functions;

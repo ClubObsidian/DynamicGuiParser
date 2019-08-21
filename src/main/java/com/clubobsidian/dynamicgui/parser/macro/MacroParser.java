@@ -1,13 +1,19 @@
 package com.clubobsidian.dynamicgui.parser.macro;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class MacroParser {
+public class MacroParser implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4558006309742656177L;
+	
 	private List<MacroToken> tokens;
 	
 	public MacroParser(List<MacroToken> tokens)

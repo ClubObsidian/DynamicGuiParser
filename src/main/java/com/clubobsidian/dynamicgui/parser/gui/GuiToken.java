@@ -15,6 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.parser.gui;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -27,7 +28,12 @@ import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
-public class GuiToken {
+public class GuiToken implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1815626830683338944L;
 	
 	private String title;
 	private String type;
