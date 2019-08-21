@@ -136,10 +136,8 @@ public class FunctionTree implements Serializable {
 	
 	private void walkTree(int depth, ConfigurationSection section, FunctionNode parentNode)
 	{
-		System.out.println(section.getKeys());
 		for(String rootKey : section.getKeys())
 		{
-			System.out.println(rootKey);
 			ConfigurationSection rootSection = section.getConfigurationSection(rootKey);
 			if(rootSection.get("functions") == null)
 			{
