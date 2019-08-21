@@ -100,6 +100,11 @@ public class SlotToken {
 		return this.index;
 	}
 	
+	public int getAmount()
+	{
+		return this.amount;
+	}
+	
 	public String getIcon()
 	{
 		return this.icon;
