@@ -13,7 +13,7 @@ import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
-public class ValidFunctionTypeMacroTest2 {
+public class ValidFunctionTypeMacroTest {
 
 	
 	@Test
