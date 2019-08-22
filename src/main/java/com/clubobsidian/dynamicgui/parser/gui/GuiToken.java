@@ -42,6 +42,7 @@ public class GuiToken implements Serializable {
 	private boolean closed;
 	private List<String> alias;
 	private List<String> locations;
+	private int updateInterval;
 	private Map<String, List<Integer>> npcs;
 	private Map<Integer, SlotToken> slots;
 	private MacroParser macroParser;
@@ -71,6 +72,7 @@ public class GuiToken implements Serializable {
 		this.closed = section.getBoolean("close");
 		this.alias = section.getStringList("alias");
 		this.locations = section.getStringList("locations");
+		this.updateInterval = this.parseUpdateInterval(section);
 		this.loadNpcs(section);
 		this.loadSlots(section);
 		
@@ -96,6 +98,15 @@ public class GuiToken implements Serializable {
 		}
 		
 		return GuiMode.valueOf(mode.toUpperCase());
+	}
+	
+	public int parseUpdateInterval(ConfigurationSection section)
+	{
+		int updateInterval = section.getInteger("update-interval");
+		if(updateInterval < 0 || updateInterval > 20)
+			return 0;
+		
+		return updateInterval;
 	}
 	
 	private void loadNpcs(ConfigurationSection section)
@@ -160,6 +171,11 @@ public class GuiToken implements Serializable {
 	public List<String> getLocations()
 	{
 		return this.locations;
+	}
+	
+	public int getUpdateInterval()
+	{
+		return this.updateInterval;
 	}
 	
 	public Map<String, List<Integer>> getNpcs()
