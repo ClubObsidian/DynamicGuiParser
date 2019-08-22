@@ -40,6 +40,7 @@ public class SlotToken implements Serializable {
 	private byte data;
 	private List<String> lore;
 	private List<String> enchants;
+	private int updateInterval;
 	private MacroParser macroParser;
 	private FunctionTree functionTree;
 	public SlotToken(int index, ConfigurationSection section)
@@ -71,6 +72,7 @@ public class SlotToken implements Serializable {
 		this.data = this.parseData(macroParser, section);
 		this.lore = section.getStringList("lore");
 		this.enchants = section.getStringList("enchants");
+		this.updateInterval = this.parseUpdateInterval(section);
 		
 		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
 		this.functionTree = new FunctionTree(functionsSection, this.macroParser);
@@ -99,6 +101,15 @@ public class SlotToken implements Serializable {
 		{
 			return 0;
 		}
+	}
+	
+	public int parseUpdateInterval(ConfigurationSection section)
+	{
+		int updateInterval = section.getInteger("update-interval");
+		if(updateInterval < 0 || updateInterval > 20)
+			return 0;
+		
+		return updateInterval;
 	}
 	
 	public int getIndex()
@@ -139,6 +150,11 @@ public class SlotToken implements Serializable {
 	public List<String> getLore()
 	{
 		return this.lore;
+	}
+	
+	public int getUpdateInterval()
+	{
+		return this.updateInterval;
 	}
 	
 	public List<String> getEnchants()
