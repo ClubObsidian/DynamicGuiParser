@@ -17,7 +17,7 @@ package com.clubobsidian.dynamicgui.parser.function;
 
 public enum FunctionType {
 	
-	ALL_CLICK(true),
+	ALL(true),
 	LEFT(true),
 	RIGHT(true),
 	MIDDLE(true),
