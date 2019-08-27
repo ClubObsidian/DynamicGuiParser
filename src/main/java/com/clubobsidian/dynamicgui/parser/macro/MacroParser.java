@@ -15,7 +15,6 @@ public class MacroParser implements Serializable {
 	private static final long serialVersionUID = -4558006309742656177L;
 	
 	private List<MacroToken> tokens;
-	
 	public MacroParser(List<MacroToken> tokens)
 	{
 		this.tokens = Collections.unmodifiableList(tokens);

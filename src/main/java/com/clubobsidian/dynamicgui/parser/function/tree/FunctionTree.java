@@ -36,6 +36,12 @@ public class FunctionTree implements Serializable {
 	
 	private List<FunctionNode> rootNodes;
 	private MacroParser macroParser;
+	public FunctionTree()
+	{
+		this.rootNodes = new ArrayList<FunctionNode>();
+		this.macroParser = new MacroParser(new ArrayList<MacroToken>());
+	}
+	
 	public FunctionTree(ConfigurationSection section)
 	{
 		this(section, new MacroParser(new ArrayList<MacroToken>()));
@@ -65,7 +71,7 @@ public class FunctionTree implements Serializable {
 	}
 	
 	private List<FunctionType> parseTypes(List<String> types)
-	{;
+	{
 		types = this.macroParser.parseListMacros(types);
 		List<FunctionType> typesList = new ArrayList<>();
 		for(String type : types)
