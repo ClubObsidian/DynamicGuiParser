@@ -17,10 +17,21 @@ package com.clubobsidian.dynamicgui.parser.function;
 
 public enum FunctionType {
 	
-	LEFT,
-	RIGHT,
-	MIDDLE,
-	LOAD,
-	FAIL;
+	ALL_CLICK(true),
+	LEFT(true),
+	RIGHT(true),
+	MIDDLE(true),
+	LOAD(true),
+	FAIL(false);
 	
+	private boolean isClick;
+	private FunctionType(boolean isClick)
+	{
+		this.isClick = isClick;
+	}
+	
+	public boolean isClick()
+	{
+		return this.isClick;
+	}
 }
