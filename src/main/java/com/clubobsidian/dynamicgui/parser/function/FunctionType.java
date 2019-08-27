@@ -21,7 +21,7 @@ public enum FunctionType {
 	LEFT(true),
 	RIGHT(true),
 	MIDDLE(true),
-	LOAD(true),
+	LOAD(false),
 	FAIL(false);
 	
 	private boolean isClick;
