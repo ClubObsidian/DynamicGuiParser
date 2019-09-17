@@ -5,9 +5,9 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![CLA assistant](https://cla-assistant.io/readme/badge/ClubObsidian/DynamicGuiParser)](https://cla-assistant.io/ClubObsidian/DynamicGuiParser) 
 
-An experimental parser for dynamic gui 4.x.
+Parser for DynamicGui 4.x trees.
 
-Meant to parse guis and allow function treeing.
+Written to allow for function treeing.
 
 ## Contributing
 
