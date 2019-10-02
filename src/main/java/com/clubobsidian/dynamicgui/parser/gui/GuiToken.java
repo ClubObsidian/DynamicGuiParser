@@ -54,13 +54,14 @@ public class GuiToken implements Serializable {
 	public GuiToken(ConfigurationSection section, List<MacroToken> macroTokens)
 	{
 		List<MacroToken> copyMacroTokens = new ArrayList<MacroToken>();
-		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
-		copyMacroTokens.add(new MacroToken(macrosSection));
-		
 		for(MacroToken token : macroTokens)
 		{
 			copyMacroTokens.add(token);
 		}
+		
+		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
+		copyMacroTokens.add(new MacroToken(macrosSection));
+		
 		
 		this.macroParser = new MacroParser(copyMacroTokens);
 		
