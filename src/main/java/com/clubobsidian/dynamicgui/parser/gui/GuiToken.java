@@ -46,6 +46,7 @@ public class GuiToken implements Serializable {
 	private Map<Integer, SlotToken> slots;
 	private MacroParser macroParser;
 	private FunctionTree functions;
+	private List<String> loadMacros;
 	public GuiToken(ConfigurationSection section)
 	{
 		this(section, new ArrayList<MacroToken>());
@@ -75,9 +76,11 @@ public class GuiToken implements Serializable {
 		this.loadNpcs(section);
 		this.loadSlots(section);
 		
+		
 		ConfigurationSection guiFunctionsSection = section.getConfigurationSection("functions");
 		this.functions = new FunctionTree(guiFunctionsSection, this.macroParser);
 		
+		this.loadMacros = section.getStringList("load-macros");
 	}
 	
 	public String parseType(String type)
@@ -181,5 +184,10 @@ public class GuiToken implements Serializable {
 	public MacroParser getMacroParser()
 	{
 		return this.macroParser;
+	}
+	
+	public List<String> getLoadMacros()
+	{
+		return this.loadMacros;
 	}
 }
