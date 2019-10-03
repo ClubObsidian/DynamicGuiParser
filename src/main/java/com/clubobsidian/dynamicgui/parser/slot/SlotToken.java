@@ -68,8 +68,8 @@ public class SlotToken implements Serializable {
 		this.nbt = macroParser.parseStringMacros(section.getString("nbt"));
 		this.closed = section.getBoolean("close");
 		this.data = this.parseData(macroParser, section);
-		this.lore = section.getStringList("lore");
-		this.enchants = section.getStringList("enchants");
+		this.lore = macroParser.parseListMacros(section.getStringList("lore"));
+		this.enchants = macroParser.parseListMacros(section.getStringList("enchants"));
 		this.updateInterval = this.parseUpdateInterval(section);
 		
 		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
