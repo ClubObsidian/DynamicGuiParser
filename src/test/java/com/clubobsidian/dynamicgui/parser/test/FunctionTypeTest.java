@@ -10,9 +10,9 @@ import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 public class FunctionTypeTest {
 
 	@Test
-	public void allIsClickTest()
+	public void clickIsClickTest()
 	{
-		assertTrue("All click is not a click", FunctionType.ALL.isClick());
+		assertTrue("All click is not a click", FunctionType.CLICK.isClick());
 	}
 	
 	@Test
