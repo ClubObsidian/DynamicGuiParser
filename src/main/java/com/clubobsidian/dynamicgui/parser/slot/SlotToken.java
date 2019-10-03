@@ -57,9 +57,7 @@ public class SlotToken implements Serializable {
 		}
 		
 		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
-		copyMacroTokens = new ArrayList<>();
 		copyMacroTokens.add(new MacroToken(macrosSection));
-		
 		
 		this.macroParser = new MacroParser(copyMacroTokens);
 		
