@@ -39,10 +39,7 @@ public class MacroParser implements Serializable {
 				Entry<String, Object> next = it.next();
 				String key = next.getKey();
 				Object value = next.getValue();
-				if(value instanceof String)
-				{
-					replace = replace.replace(key, (String) value);
-				}
+				replace = replace.replace(key, value.toString());
 			}
 		}
 		return replace;
@@ -73,9 +70,9 @@ public class MacroParser implements Serializable {
 					if(line.contains(key))
 					{
 						Object value = next.getValue();
-						if(value instanceof String)
+						if(!(value instanceof List))
 						{
-							String stringMacro = (String) value;
+							String stringMacro = value.toString();
 							newList.remove(i);
 							newList.add(i, line.replace(key, stringMacro));
 						}

@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.parser.test;
+package com.clubobsidian.dynamicgui.parser.test.macro;
 
 import static org.junit.Assert.assertTrue;
 
