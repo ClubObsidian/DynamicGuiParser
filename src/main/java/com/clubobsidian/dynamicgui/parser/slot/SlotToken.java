@@ -17,7 +17,9 @@ package com.clubobsidian.dynamicgui.parser.slot;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
@@ -43,6 +45,7 @@ public class SlotToken implements Serializable {
 	private int updateInterval;
 	private MacroParser macroParser;
 	private FunctionTree functionTree;
+	private Map<String, String> metadata;
 	public SlotToken(int index, ConfigurationSection section)
 	{
 		this(index, section, new ArrayList<MacroToken>());
@@ -75,6 +78,8 @@ public class SlotToken implements Serializable {
 		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
 		this.functionTree = new FunctionTree(functionsSection, this.macroParser);
 		
+		ConfigurationSection metadataSection = section.getConfigurationSection("metadata");
+		this.metadata = this.parseMetadata(metadataSection);		
 	}
 	
 	private int parseAmount(int amount)
@@ -101,13 +106,25 @@ public class SlotToken implements Serializable {
 		}
 	}
 	
-	public int parseUpdateInterval(ConfigurationSection section)
+	private int parseUpdateInterval(ConfigurationSection section)
 	{
 		int updateInterval = section.getInteger("update-interval");
 		if(updateInterval < 0 || updateInterval > 20)
 			return 0;
 		
 		return updateInterval;
+	}
+	
+	private Map<String,String> parseMetadata(ConfigurationSection section)
+	{
+		Map<String, String> metadata = new HashMap<>();
+		for(String key : section.getKeys())
+		{
+			String value = section.getString(key);
+			metadata.put(key, value);
+		}
+		
+		return metadata;
 	}
 	
 	public int getIndex()
@@ -168,5 +185,10 @@ public class SlotToken implements Serializable {
 	public MacroParser getMacroParser()
 	{
 		return this.macroParser;
+	}
+	
+	public Map<String, String> getMetadata()
+	{
+		return this.metadata;
 	}
 }
