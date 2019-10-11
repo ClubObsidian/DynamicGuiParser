@@ -66,13 +66,13 @@ public class GuiToken implements Serializable {
 		
 		this.macroParser = new MacroParser(copyMacroTokens);
 		
-		this.title = macroParser.parseStringMacros(section.getString("title"));
+		this.title = this.macroParser.parseStringMacros(section.getString("title"));
 		this.type = this.parseType(section.getString("type"));
 		this.rows = section.getInteger("rows");
 		this.mode = this.parseMode(section.getString("mode"));
 		this.closed = section.getBoolean("close");
-		this.alias = section.getStringList("alias");
-		this.locations = section.getStringList("locations");
+		this.alias = this.macroParser.parseListMacros(section.getStringList("alias"));
+		this.locations = this.macroParser.parseListMacros(section.getStringList("locations"));
 		this.loadNpcs(section);
 		this.loadSlots(section);
 		
