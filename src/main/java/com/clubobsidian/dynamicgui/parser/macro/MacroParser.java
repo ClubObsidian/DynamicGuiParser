@@ -57,6 +57,19 @@ public class MacroParser implements Serializable {
 				replace = replace.replace(key, value.toString());
 			}
 		}
+		
+		for(MacroToken token : this.tokens)
+		{
+			for(Entry<String, Object> entry : token.getMacros().entrySet())
+			{
+				String key = entry.getKey();
+				if(replace.contains(key))
+				{
+					return this.parseStringMacros(replace);
+				}
+			}
+		}
+		
 		return replace;
 	}
 
@@ -129,6 +142,22 @@ public class MacroParser implements Serializable {
 				}
 			}
 		}
+		
+		for(MacroToken token : this.tokens)
+		{
+			for(Entry<String, Object> entry : token.getMacros().entrySet())
+			{
+				String key = entry.getKey();
+				for(String line : newList)
+				{
+					if(line.contains(key))
+					{
+						return this.parseListMacros(newList);
+					}
+				}
+			}
+		}
+		
 		return newList;
 	}
 }
