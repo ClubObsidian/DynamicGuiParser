@@ -56,7 +56,11 @@ public class MacroParser implements Serializable {
 				Entry<String, Object> next = it.next();
 				String key = next.getKey();
 				Object value = next.getValue();
-				replace = ReplacerUtil.replace(replace, key, value.toString());
+				
+				if(replace.contains(key))
+				{
+					replace = ReplacerUtil.replace(replace, key, value.toString());
+				}
 			}
 		}
 		
@@ -87,7 +91,6 @@ public class MacroParser implements Serializable {
 
 		for(MacroToken token : this.tokens)
 		{
-
 			Iterator<Entry<String, Object>> it = token.getMacros().entrySet().iterator();
 			while(it.hasNext())
 			{
@@ -105,6 +108,7 @@ public class MacroParser implements Serializable {
 							String stringMacro = value.toString();
 							newList.remove(i);
 							newList.add(i, ReplacerUtil.replace(line, key, stringMacro));
+							
 						}
 						else
 						{
@@ -116,6 +120,7 @@ public class MacroParser implements Serializable {
 							String macro = listMacro.get(0);
 							String firstLine = line.substring(0, endIndex);
 							firstLine = ReplacerUtil.replace(firstLine, key, macro);
+							
 							
 							newList.remove(i);
 
