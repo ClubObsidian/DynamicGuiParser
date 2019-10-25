@@ -104,7 +104,7 @@ public class MacroParser implements Serializable {
 						{
 							String stringMacro = value.toString();
 							newList.remove(i);
-							newList.add(i, line.replace(key, stringMacro));
+							newList.add(i, ReplacerUtil.replace(line, key, stringMacro));
 						}
 						else
 						{
@@ -116,7 +116,7 @@ public class MacroParser implements Serializable {
 							String macro = listMacro.get(0);
 							String firstLine = line.substring(0, endIndex);
 							firstLine = ReplacerUtil.replace(firstLine, key, macro);
-
+							
 							newList.remove(i);
 
 							newList.add(i, firstLine);
