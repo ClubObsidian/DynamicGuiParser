@@ -18,9 +18,12 @@ package com.clubobsidian.dynamicgui.parser.macro;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Pattern;
 
 public class MacroParser implements Serializable {
 
@@ -30,9 +33,11 @@ public class MacroParser implements Serializable {
 	private static final long serialVersionUID = -4558006309742656177L;
 	
 	private List<MacroToken> tokens;
+	private Map<String, Pattern> patterns;
 	public MacroParser(List<MacroToken> tokens)
 	{
 		this.tokens = Collections.unmodifiableList(tokens);
+		this.patterns = new HashMap<>();
 	}
 	
 	public List<MacroToken> getTokens()
@@ -54,7 +59,7 @@ public class MacroParser implements Serializable {
 				Entry<String, Object> next = it.next();
 				String key = next.getKey();
 				Object value = next.getValue();
-				replace = replace.replace(key, value.toString());
+				replace = this.replace(replace, key, value.toString());
 			}
 		}
 		
@@ -112,8 +117,8 @@ public class MacroParser implements Serializable {
 							int endIndex = startIndex + key.length();
 
 							String macro = listMacro.get(0);
-							String firstLine = line.substring(0, endIndex)
-									.replace(key, macro);
+							String firstLine = line.substring(0, endIndex);
+							firstLine = this.replace(firstLine, key, macro);
 
 							newList.remove(i);
 
@@ -159,5 +164,23 @@ public class MacroParser implements Serializable {
 		}
 		
 		return newList;
+	}
+	
+	private String replace(String replaceIn, String key, String value)
+	{
+		Pattern pattern = this.getPattern(key);
+		return pattern.matcher(replaceIn).replaceAll(value);
+	}
+	
+	private Pattern getPattern(String key)
+	{
+		Pattern pattern = this.patterns.get(key);
+		if(pattern == null)
+		{
+			pattern = Pattern.compile(key);
+			this.patterns.put(key, pattern);
+		}
+		
+		return pattern;
 	}
 }
