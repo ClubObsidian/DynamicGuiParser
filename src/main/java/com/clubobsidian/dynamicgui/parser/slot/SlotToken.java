@@ -66,13 +66,13 @@ public class SlotToken implements Serializable {
 		
 		this.index = index;
 		this.amount = this.parseAmount(section.getInteger("amount"));
-		this.icon = macroParser.parseStringMacros(section.getString("icon"));
-		this.name = macroParser.parseStringMacros(section.getString("name"));
-		this.nbt = macroParser.parseStringMacros(section.getString("nbt"));
+		this.icon = this.macroParser.parseStringMacros(section.getString("icon"));
+		this.name = this.macroParser.parseStringMacros(section.getString("name"));
+		this.nbt = this.macroParser.parseStringMacros(section.getString("nbt"));
 		this.closed = section.getBoolean("close");
-		this.data = this.parseData(macroParser, section);
-		this.lore = macroParser.parseListMacros(section.getStringList("lore"));
-		this.enchants = macroParser.parseListMacros(section.getStringList("enchants"));
+		this.data = this.parseData(this.macroParser, section);
+		this.lore = this.macroParser.parseListMacros(section.getStringList("lore"));
+		this.enchants = this.macroParser.parseListMacros(section.getStringList("enchants"));
 		this.updateInterval = this.parseUpdateInterval(section);
 		
 		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
@@ -120,7 +120,9 @@ public class SlotToken implements Serializable {
 		Map<String, String> metadata = new HashMap<>();
 		for(String key : section.getKeys())
 		{
-			String value = section.getString(key);
+			String parsedKey = this.macroParser.parseStringMacros(key);
+			String value = section.getString(parsedKey);
+			value = this.macroParser.parseStringMacros(value);
 			metadata.put(key, value);
 		}
 		
