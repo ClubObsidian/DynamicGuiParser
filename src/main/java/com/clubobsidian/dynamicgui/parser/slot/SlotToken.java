@@ -115,7 +115,7 @@ public class SlotToken implements Serializable {
 		return updateInterval;
 	}
 	
-	private Map<String,String> parseMetadata(ConfigurationSection section)
+	private Map<String, String> parseMetadata(ConfigurationSection section)
 	{
 		Map<String, String> metadata = new HashMap<>();
 		for(String key : section.getKeys())
@@ -123,7 +123,7 @@ public class SlotToken implements Serializable {
 			String parsedKey = this.macroParser.parseStringMacros(key);
 			String value = section.getString(parsedKey);
 			value = this.macroParser.parseStringMacros(value);
-			metadata.put(key, value);
+			metadata.put(parsedKey, value);
 		}
 		
 		return metadata;
