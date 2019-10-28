@@ -34,12 +34,12 @@ public class MacroParser implements Serializable {
 	private List<MacroToken> tokens;
 	public MacroParser(List<MacroToken> tokens)
 	{
-		this.tokens = Collections.unmodifiableList(tokens);
+		this.tokens = tokens;
 	}
 	
 	public List<MacroToken> getTokens()
 	{
-		return this.tokens;
+		return Collections.unmodifiableList(this.tokens);
 	}
 	
 	public String parseStringMacros(final String replaceIn)
