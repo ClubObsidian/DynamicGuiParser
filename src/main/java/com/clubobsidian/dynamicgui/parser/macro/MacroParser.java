@@ -22,7 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
-import com.clubobsidian.dynamicgui.util.ReplacerUtil;
+import org.apache.commons.lang3.StringUtils;
 
 public class MacroParser implements Serializable {
 
@@ -59,7 +59,7 @@ public class MacroParser implements Serializable {
 				
 				if(replace.contains(key))
 				{
-					replace = ReplacerUtil.replace(replace, key, value.toString());
+					replace = StringUtils.replace(replace, key, value.toString());
 				}
 			}
 		}
@@ -107,7 +107,7 @@ public class MacroParser implements Serializable {
 						{
 							String stringMacro = value.toString();
 							newList.remove(i);
-							newList.add(i, ReplacerUtil.replace(line, key, stringMacro));
+							newList.add(i, StringUtils.replace(line, key, stringMacro));
 							
 						}
 						else
@@ -119,7 +119,7 @@ public class MacroParser implements Serializable {
 
 							String macro = listMacro.get(0);
 							String firstLine = line.substring(0, endIndex);
-							firstLine = ReplacerUtil.replace(firstLine, key, macro);
+							firstLine = StringUtils.replace(firstLine, key, macro);
 							
 							
 							newList.remove(i);
