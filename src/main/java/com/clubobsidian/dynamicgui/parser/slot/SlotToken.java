@@ -38,6 +38,7 @@ public class SlotToken implements Serializable {
 	private String icon;
 	private String name;
 	private String nbt;
+	private boolean glow;
 	private boolean closed;
 	private byte data;
 	private List<String> lore;
@@ -69,7 +70,8 @@ public class SlotToken implements Serializable {
 		this.icon = this.macroParser.parseStringMacros(section.getString("icon"));
 		this.name = this.macroParser.parseStringMacros(section.getString("name"));
 		this.nbt = this.macroParser.parseStringMacros(section.getString("nbt"));
-		this.closed = section.getBoolean("close");
+		this.glow = this.parseBoolean(section.getString("glow"));
+		this.closed = this.parseBoolean(section.getString("close"));
 		this.data = this.parseData(this.macroParser, section);
 		this.lore = this.macroParser.parseListMacros(section.getStringList("lore"));
 		this.enchants = this.macroParser.parseListMacros(section.getStringList("enchants"));
@@ -104,6 +106,17 @@ public class SlotToken implements Serializable {
 		{
 			return 0;
 		}
+	}
+	
+	private boolean parseBoolean(String data)
+	{
+		String parsed = this.macroParser.parseStringMacros(data);
+		if(data.equals("true"))
+		{
+			return Boolean.parseBoolean(parsed);
+		}
+		
+		return false;
 	}
 	
 	private int parseUpdateInterval(ConfigurationSection section)
@@ -152,6 +165,11 @@ public class SlotToken implements Serializable {
 	public String getNbt()
 	{
 		return this.nbt;
+	}
+	
+	public boolean getGlow()
+	{
+		return this.glow;
 	}
 	
 	public boolean isClosed()
