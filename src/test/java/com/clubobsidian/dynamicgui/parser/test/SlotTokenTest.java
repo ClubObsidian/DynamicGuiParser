@@ -15,6 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.parser.test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -60,6 +61,13 @@ public class SlotTokenTest {
 	{
 		String nbt = token.getNbt();
 		assertTrue("Nbt was not '{SomeKey:\"some value\"}'", nbt.equals("{SomeKey:\"some value\"}"));
+	}
+	
+	@Test
+	public void testSlotGlow()
+	{
+		boolean glow = token.getGlow();
+		assertFalse(glow);
 	}
 	
 	@Test

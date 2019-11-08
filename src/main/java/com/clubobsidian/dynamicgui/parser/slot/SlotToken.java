@@ -110,6 +110,11 @@ public class SlotToken implements Serializable {
 	
 	private boolean parseBoolean(String data)
 	{
+		if(data == null)
+		{
+			return false;
+		}
+		
 		String parsed = this.macroParser.parseStringMacros(data);
 		if(data.equals("true"))
 		{
