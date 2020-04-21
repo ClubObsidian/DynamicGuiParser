@@ -1,6 +1,6 @@
 # DynamicGuiParser
 
-[![Build Status](https://travis-ci.org/ClubObsidian/DynamicGuiParser.svg?branch=master)](https://travis-ci.org/ClubObsidian/DynamicGuiParser)
+[![build](https://github.com/ClubObsidian/DynamicGuiParser/workflows/build/badge.svg)](https://github.com/ClubObsidian/DynamicGuiParser/actions?query=workflow%3Abuild)
 [![codecov](https://codecov.io/gh/ClubObsidian/DynamicGuiParser/branch/master/graph/badge.svg)](https://codecov.io/gh/ClubObsidian/DynamicGuiParser)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![CLA assistant](https://cla-assistant.io/readme/badge/ClubObsidian/DynamicGuiParser)](https://cla-assistant.io/ClubObsidian/DynamicGuiParser) 
