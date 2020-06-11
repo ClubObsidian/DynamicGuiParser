@@ -87,15 +87,8 @@ public class FunctionTree implements Serializable {
 	
 	private FunctionType parseType(String type)
 	{
-		try
-		{
-			FunctionType functionType = FunctionType.valueOf(type.toUpperCase());
-			return functionType;
-		}
-		catch(Exception ex)
-		{
-			return null;
-		}
+		FunctionType functionType = FunctionType.getFuzzyType(type);
+		return functionType;
 	}
 	
 	private String[] parseFunctionData(String functionData)
