@@ -52,12 +52,6 @@ public class FunctionTypeTest {
 	}
 	
 	@Test
-	public void shiftMiddleIsClickTest()
-	{
-		assertTrue(FunctionType.SHIFT_MIDDLE.isClick());
-	}
-	
-	@Test
 	public void loadIsNotClickTest()
 	{
 		assertFalse(FunctionType.LOAD.isClick());

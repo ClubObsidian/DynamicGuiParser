@@ -29,7 +29,6 @@ public enum FunctionType {
 	SHIFT_CLICK(true),
 	SHIFT_LEFT(true),
 	SHIFT_RIGHT(true),
-	SHIFT_MIDDLE(true),
 	LOAD(false),
 	FAIL(false);
 	
