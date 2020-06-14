@@ -22,6 +22,7 @@ import java.util.List;
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.parser.function.FunctionTypeParser;
 import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.fuzzutil.StringFuzz;
@@ -36,10 +37,17 @@ public class FunctionTree implements Serializable {
 	
 	private List<FunctionNode> rootNodes;
 	private MacroParser macroParser;
+	private FunctionTypeParser functionTypeParser;
 	public FunctionTree()
 	{
-		this.rootNodes = new ArrayList<FunctionNode>();
-		this.macroParser = new MacroParser(new ArrayList<MacroToken>());
+		this(new ArrayList<FunctionNode>(), new MacroParser(new ArrayList<MacroToken>()));
+	}
+	
+	public FunctionTree(List<FunctionNode> rootNodes, MacroParser macroParser)
+	{
+		this.rootNodes = rootNodes;
+		this.macroParser = macroParser;
+		this.functionTypeParser = new FunctionTypeParser(this.macroParser);
 	}
 	
 	public FunctionTree(ConfigurationSection section)
@@ -49,8 +57,7 @@ public class FunctionTree implements Serializable {
 	
 	public FunctionTree(ConfigurationSection section, MacroParser macroParser)
 	{
-		this.rootNodes = new ArrayList<FunctionNode>();
-		this.macroParser = macroParser;
+		this(new ArrayList<FunctionNode>(), macroParser);
 		this.parseNodes(section);
 	}
 	
@@ -68,34 +75,6 @@ public class FunctionTree implements Serializable {
 	{
 		int depth = 0;
 		this.walkTree(depth, section, null);
-	}
-	
-	private List<FunctionType> parseTypes(List<String> types)
-	{
-		types = this.macroParser.parseListMacros(types);
-		List<FunctionType> typesList = new ArrayList<>();
-		for(String type : types)
-		{
-			FunctionType parsedType = this.parseType(type);
-			if(parsedType == null)
-				continue; //TODO - warn
-			
-			typesList.add(parsedType);
-		}
-		return typesList;
-	}
-	
-	private FunctionType parseType(String type)
-	{
-		try
-		{
-			FunctionType functionType = FunctionType.valueOf(type.toUpperCase());
-			return functionType;
-		}
-		catch(Exception ex)
-		{
-			return null;
-		}
 	}
 	
 	private String[] parseFunctionData(String functionData)
@@ -151,7 +130,7 @@ public class FunctionTree implements Serializable {
 			}
 			
 			String name = rootKey;
-			List<FunctionType> types = this.parseTypes(rootSection.getStringList("type"));
+			List<FunctionType> types = this.functionTypeParser.parseTypes(rootSection.getStringList("type"));
 			List<FunctionData> functionTokens = this.parseFunctionData(rootSection.getStringList("functions"));
 			List<FunctionData> failFunctions = this.parseFunctionData(rootSection.getStringList("fail-on"));
 			

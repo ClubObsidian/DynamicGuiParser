@@ -12,36 +12,54 @@ public class FunctionTypeTest {
 	@Test
 	public void clickIsClickTest()
 	{
-		assertTrue("All click is not a click", FunctionType.CLICK.isClick());
+		assertTrue(FunctionType.CLICK.isClick());
 	}
 	
 	@Test
 	public void leftIsClickTest()
 	{
-		assertTrue("Left click is not a click", FunctionType.LEFT.isClick());
+		assertTrue(FunctionType.LEFT.isClick());
 	}
 	
 	@Test
 	public void rightIsClickTest()
 	{
-		assertTrue("Right click is not a click", FunctionType.RIGHT.isClick());
+		assertTrue(FunctionType.RIGHT.isClick());
 	}
 	
 	@Test
 	public void middleIsClickTest()
 	{
-		assertTrue("Middle click is not a click", FunctionType.MIDDLE.isClick());
+		assertTrue(FunctionType.MIDDLE.isClick());
+	}
+	
+	@Test
+	public void shiftClickIsClickTest()
+	{
+		assertTrue(FunctionType.SHIFT_CLICK.isClick());
+	}
+	
+	@Test
+	public void shiftLeftIsClickTest()
+	{
+		assertTrue(FunctionType.SHIFT_LEFT.isClick());
+	}
+	
+	@Test
+	public void shiftRightIsClickTest()
+	{
+		assertTrue(FunctionType.SHIFT_RIGHT.isClick());
 	}
 	
 	@Test
 	public void loadIsNotClickTest()
 	{
-		assertFalse("Load is a click", FunctionType.LOAD.isClick());
+		assertFalse(FunctionType.LOAD.isClick());
 	}
 	
 	@Test
 	public void failIsNotClickTest()
 	{
-		assertFalse("Fail is a click", FunctionType.FAIL.isClick());
+		assertFalse(FunctionType.FAIL.isClick());
 	}
 }
