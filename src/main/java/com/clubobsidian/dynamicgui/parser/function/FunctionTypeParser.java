@@ -15,13 +15,19 @@
  */
 package com.clubobsidian.dynamicgui.parser.function;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
 
-public class FunctionTypeParser {
+public class FunctionTypeParser implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -496196602929082383L;
+	
 	private MacroParser macroParser;
 	public FunctionTypeParser(MacroParser macroParser)
 	{
