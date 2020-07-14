@@ -62,4 +62,16 @@ public class FunctionTypeTest {
 	{
 		assertFalse(FunctionType.FAIL.isClick());
 	}
+	
+	@Test
+	public void switchMenuNotClickTest()
+	{
+		assertFalse(FunctionType.SWITCH_MENU.isClick());
+	}
+	
+	@Test
+	public void exitMenuNotClickTest()
+	{
+		assertFalse(FunctionType.EXIT_MENU.isClick());
+	}
 }

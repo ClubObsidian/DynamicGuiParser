@@ -30,7 +30,9 @@ public enum FunctionType {
 	SHIFT_LEFT(true),
 	SHIFT_RIGHT(true),
 	LOAD(false),
-	FAIL(false);
+	FAIL(false),
+	SWITCH_MENU(false),
+	EXIT_MENU(false);
 	
 	private boolean isClick;
 	private FunctionType(boolean isClick)
