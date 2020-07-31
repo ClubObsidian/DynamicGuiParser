@@ -74,7 +74,7 @@ public class SlotToken implements Serializable {
 		this.glow = this.parseBoolean(section.getString("glow"));
 		this.moveable = this.parseBoolean(section.getString("moveable"));
 		this.closed = this.parseBoolean(section.getString("close"));
-		this.data = this.parseData(this.macroParser, section);
+		this.data = this.parseByte(section.getString("data"));
 		this.lore = this.macroParser.parseListMacros(section.getStringList("lore"));
 		this.enchants = this.macroParser.parseListMacros(section.getStringList("enchants"));
 		this.updateInterval = this.parseUpdateInterval(section);
@@ -95,10 +95,9 @@ public class SlotToken implements Serializable {
 		return amount;
 	}
 	
-	private byte parseData(MacroParser parser, ConfigurationSection section)
+	private byte parseByte(String data)
 	{
-		String stringData = parser.parseStringMacros(section.getString("data"));
-		
+		String stringData = this.macroParser.parseStringMacros(data);
 		try
 		{
 			byte bytes = Byte.parseByte(stringData);
@@ -125,6 +124,8 @@ public class SlotToken implements Serializable {
 		
 		return false;
 	}
+	
+	
 	
 	private int parseUpdateInterval(ConfigurationSection section)
 	{
