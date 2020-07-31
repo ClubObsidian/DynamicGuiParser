@@ -77,7 +77,7 @@ public class SlotToken implements Serializable {
 		this.data = this.parseByte(section.getString("data"));
 		this.lore = this.macroParser.parseListMacros(section.getStringList("lore"));
 		this.enchants = this.macroParser.parseListMacros(section.getStringList("enchants"));
-		this.updateInterval = this.parseUpdateInterval(section);
+		this.updateInterval = this.parseUpdateInterval(section.getString("update-interval"));
 		
 		ConfigurationSection functionsSection = section.getConfigurationSection("functions");
 		this.functionTree = new FunctionTree(functionsSection, this.macroParser);
@@ -125,11 +125,26 @@ public class SlotToken implements Serializable {
 		return false;
 	}
 	
-	
-	
-	private int parseUpdateInterval(ConfigurationSection section)
+	private int parseInteger(String data) 
 	{
-		int updateInterval = section.getInteger("update-interval");
+		if(data == null)
+		{
+			return 0;
+		}
+		try
+		{
+			String parsed = this.macroParser.parseStringMacros(data);
+			return Integer.valueOf(parsed);
+		}
+		catch(Exception ex)
+		{
+			return 0;
+		}
+	}
+	
+	private int parseUpdateInterval(String data)
+	{
+		int updateInterval = this.parseInteger(data);
 		if(updateInterval < 0 || updateInterval > 20)
 			return 0;
 		
