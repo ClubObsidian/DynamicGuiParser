@@ -131,6 +131,7 @@ public class SlotToken implements Serializable {
 		{
 			return 0;
 		}
+		
 		try
 		{
 			String parsed = this.macroParser.parseStringMacros(data);

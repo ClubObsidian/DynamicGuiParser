@@ -2,3 +2,5 @@
   update-interval: -1
 '1':
   update-interval: 21
+'2':
+  update-interval: notaninterval
