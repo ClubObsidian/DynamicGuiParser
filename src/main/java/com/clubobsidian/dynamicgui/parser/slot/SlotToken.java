@@ -146,7 +146,7 @@ public class SlotToken implements Serializable {
 	private int parseUpdateInterval(String data)
 	{
 		int updateInterval = this.parseInteger(data);
-		if(updateInterval < 0 || updateInterval > 20)
+		if(updateInterval < 0)
 			return 0;
 		
 		return updateInterval;
