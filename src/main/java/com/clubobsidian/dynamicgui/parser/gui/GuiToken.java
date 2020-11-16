@@ -47,6 +47,7 @@ public class GuiToken implements Serializable {
 	private MacroParser macroParser;
 	private FunctionTree functions;
 	private List<String> loadMacros;
+	private Map<String, String> metadata;
 	public GuiToken(ConfigurationSection section)
 	{
 		this(section, new ArrayList<MacroToken>());
@@ -81,6 +82,9 @@ public class GuiToken implements Serializable {
 		this.functions = new FunctionTree(guiFunctionsSection, this.macroParser);
 		
 		this.loadMacros = section.getStringList("load-macros");
+		
+		ConfigurationSection metadataSection = section.getConfigurationSection("metadata");
+		this.metadata = this.parseMetadata(metadataSection);		
 	}
 	
 	public String parseType(String type)
@@ -109,10 +113,23 @@ public class GuiToken implements Serializable {
 		for(String key : npcSection.getKeys())
 		{
 			List<Integer> npcIds = npcSection.getIntegerList(key);
-			npcs.put(key, npcIds);
+			this.npcs.put(key, npcIds);
 		}
 	}
 	
+	private Map<String, String> parseMetadata(ConfigurationSection section)
+	{
+		Map<String, String> metadata = new HashMap<>();
+		for(String key : section.getKeys())
+		{
+			String parsedKey = this.macroParser.parseStringMacros(key);
+			String value = section.getString(parsedKey);
+			value = this.macroParser.parseStringMacros(value);
+			metadata.put(parsedKey, value);
+		}
+		
+		return metadata;
+	}
 	
 	private void loadSlots(ConfigurationSection section)
 	{
@@ -189,5 +206,10 @@ public class GuiToken implements Serializable {
 	public List<String> getLoadMacros()
 	{
 		return this.loadMacros;
+	}
+	
+	public Map<String, String> getMetadata()
+	{
+		return this.metadata;
 	}
 }
