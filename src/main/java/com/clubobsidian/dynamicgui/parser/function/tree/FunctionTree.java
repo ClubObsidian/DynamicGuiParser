@@ -19,10 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.parser.function.FunctionData;
-import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
-import com.clubobsidian.dynamicgui.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.parser.function.FunctionTypeParser;
+import com.clubobsidian.dynamicgui.parser.function.*;
 import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.fuzzutil.StringFuzz;
@@ -81,13 +78,14 @@ public class FunctionTree implements Serializable {
 	{
 		if(!functionData.contains(":"))
 		{
-			String[] args = new String[2];
+			String[] args = new String[3];
 			args[0] = functionData;
 			args[1] = null;
+			args[2] = FunctionModifier.NONE.name();
 			return args;
 		}
 		
-		String[] ar = new String[2];
+		String[] ar = new String[3];
 		String dat = null;
 		String[] args = functionData.split(":");
 		
@@ -96,11 +94,17 @@ public class FunctionTree implements Serializable {
 		if(args.length > 2)
 		{
 			for(int i = 2; i < args.length; i++)
+			{
 				dat +=  ":" + args[i];
+			}
 		}
 		
 		ar[0] = StringFuzz.normalize(args[0]);
 		ar[1] = dat;
+		//Replace if there is a modifier
+		FunctionModifier modifier = FunctionModifier.findModifier(ar[0]);
+		ar[0] = ar[0].replaceFirst(modifier.getModifier(), "");
+		ar[2] = modifier.name();
 		return ar;	
 	}
 	
@@ -112,9 +116,13 @@ public class FunctionTree implements Serializable {
 		for(String token : parsedTokens)
 		{
 			String[] parsedFunctionData = this.parseFunctionData(token);
+
 			String functionName = parsedFunctionData[0];
 			String functionData = parsedFunctionData[1];
-			functionTokens.add(new FunctionData(functionName, functionData));
+			String modifierStr = parsedFunctionData[2];
+			FunctionModifier modifier = FunctionModifier.valueOf(modifierStr);
+
+			functionTokens.add(new FunctionData(functionName, functionData, modifier));
 		}
 		return functionTokens;
 	}

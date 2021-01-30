@@ -28,10 +28,12 @@ public class FunctionData implements Serializable {
 	
 	private final String name;
 	private final String data;
-	public FunctionData(String name, String data)
+	private FunctionModifier modifier;
+	public FunctionData(String name, String data, FunctionModifier modifier)
 	{
 		this.name = StringFuzz.normalize(name);
 		this.data = data;
+		this.modifier = modifier;
 	}
 	
 	public String getName()
@@ -42,5 +44,10 @@ public class FunctionData implements Serializable {
 	public String getData()
 	{
 		return this.data;
+	}
+
+	public FunctionModifier getModifier()
+	{
+		return this.modifier;
 	}
 }
