@@ -34,8 +34,8 @@ public enum FunctionType {
 	SWITCH_MENU(false),
 	EXIT_MENU(false);
 	
-	private boolean isClick;
-	private FunctionType(boolean isClick)
+	private final boolean isClick;
+	FunctionType(boolean isClick)
 	{
 		this.isClick = isClick;
 	}
@@ -45,7 +45,7 @@ public enum FunctionType {
 		return this.isClick;
 	}
 	
-	private static Map<String, FunctionType> normalizedFunctions = new HashMap<>();
+	private final static Map<String, FunctionType> normalizedFunctions = new HashMap<>();
 	
 	static
 	{

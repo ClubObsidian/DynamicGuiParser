@@ -18,7 +18,6 @@ package com.clubobsidian.dynamicgui.parser.macro;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -31,7 +30,7 @@ public class MacroParser implements Serializable {
 	 */
 	private static final long serialVersionUID = -4558006309742656177L;
 	
-	private List<MacroToken> tokens;
+	private final List<MacroToken> tokens;
 	public MacroParser(List<MacroToken> tokens)
 	{
 		this.tokens = tokens;
@@ -50,10 +49,8 @@ public class MacroParser implements Serializable {
 		String replace = replaceIn;
 		for(MacroToken token : this.tokens)
 		{
-			Iterator<Entry<String, Object>> it = token.getMacros().entrySet().iterator();
-			while(it.hasNext())
+			for(Entry<String,Object> next : token.getMacros().entrySet())
 			{
-				Entry<String, Object> next = it.next();
 				String key = next.getKey();
 				Object value = next.getValue();
 				
@@ -82,19 +79,13 @@ public class MacroParser implements Serializable {
 	@SuppressWarnings("unchecked")
 	public List<String> parseListMacros(final List<String> replaceIn)
 	{
-		List<String> newList = new ArrayList<>();
+		List<String> newList = new ArrayList<>(replaceIn);
 
-		for(String line : replaceIn)
-		{
-			newList.add(line);
-		}
 
 		for(MacroToken token : this.tokens)
 		{
-			Iterator<Entry<String, Object>> it = token.getMacros().entrySet().iterator();
-			while(it.hasNext())
+			for(Entry<String, Object> next : token.getMacros().entrySet())
 			{
-				Entry<String, Object> next = it.next();
 				String key = next.getKey();
 
 				for(int i = 0; i < newList.size(); i++)

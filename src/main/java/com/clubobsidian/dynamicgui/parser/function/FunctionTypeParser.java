@@ -28,7 +28,7 @@ public class FunctionTypeParser implements Serializable {
 	 */
 	private static final long serialVersionUID = -496196602929082383L;
 	
-	private MacroParser macroParser;
+	private final MacroParser macroParser;
 	public FunctionTypeParser(MacroParser macroParser)
 	{
 		this.macroParser = macroParser;
@@ -51,7 +51,6 @@ public class FunctionTypeParser implements Serializable {
 	
 	public FunctionType parseType(String type)
 	{
-		FunctionType functionType = FunctionType.getFuzzyType(type);
-		return functionType;
+		return FunctionType.getFuzzyType(type);
 	}
 }

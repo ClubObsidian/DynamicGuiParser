@@ -35,35 +35,30 @@ public class GuiToken implements Serializable {
 	 */
 	private static final long serialVersionUID = -1815626830683338944L;
 	
-	private String title;
-	private String type;
-	private int rows;
-	private GuiMode mode;
-	private boolean closed;
-	private List<String> alias;
-	private List<String> locations;
-	private Map<String, List<Integer>> npcs;
-	private Map<Integer, SlotToken> slots;
-	private MacroParser macroParser;
-	private FunctionTree functions;
-	private List<String> loadMacros;
-	private Map<String, String> metadata;
+	private final String title;
+	private final String type;
+	private final int rows;
+	private final GuiMode mode;
+	private final boolean closed;
+	private final List<String> alias;
+	private final List<String> locations;
+	private final Map<String, List<Integer>> npcs;
+	private final Map<Integer, SlotToken> slots;
+	private final MacroParser macroParser;
+	private final FunctionTree functions;
+	private final List<String> loadMacros;
+	private final Map<String, String> metadata;
 	public GuiToken(ConfigurationSection section)
 	{
-		this(section, new ArrayList<MacroToken>());
+		this(section, new ArrayList<>());
 	}
 	
 	public GuiToken(ConfigurationSection section, List<MacroToken> macroTokens)
 	{
-		List<MacroToken> copyMacroTokens = new ArrayList<MacroToken>();
-		for(MacroToken token : macroTokens)
-		{
-			copyMacroTokens.add(token);
-		}
+		List<MacroToken> copyMacroTokens = new ArrayList<>(macroTokens);
 		
 		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
 		copyMacroTokens.add(new MacroToken(macrosSection));
-		
 		
 		this.macroParser = new MacroParser(copyMacroTokens);
 		
@@ -74,8 +69,8 @@ public class GuiToken implements Serializable {
 		this.closed = section.getBoolean("close");
 		this.alias = this.macroParser.parseListMacros(section.getStringList("alias"));
 		this.locations = this.macroParser.parseListMacros(section.getStringList("locations"));
-		this.loadNpcs(section);
-		this.loadSlots(section);
+		this.npcs = this.loadNpcs(section);
+		this.slots = this.loadSlots(section);
 		
 		
 		ConfigurationSection guiFunctionsSection = section.getConfigurationSection("functions");
@@ -106,15 +101,16 @@ public class GuiToken implements Serializable {
 		return GuiMode.valueOf(mode.toUpperCase());
 	}
 	
-	private void loadNpcs(ConfigurationSection section)
+	private Map<String, List<Integer>> loadNpcs(ConfigurationSection section)
 	{
-		this.npcs = new HashMap<>();
+		Map<String, List<Integer>> npcs = new HashMap<>();
 		ConfigurationSection npcSection = section.getConfigurationSection("npcs");
 		for(String key : npcSection.getKeys())
 		{
 			List<Integer> npcIds = npcSection.getIntegerList(key);
-			this.npcs.put(key, npcIds);
+			npcs.put(key, npcIds);
 		}
+		return npcs;
 	}
 	
 	private Map<String, String> parseMetadata(ConfigurationSection section)
@@ -131,21 +127,20 @@ public class GuiToken implements Serializable {
 		return metadata;
 	}
 	
-	private void loadSlots(ConfigurationSection section)
+	private Map<Integer, SlotToken> loadSlots(ConfigurationSection section)
 	{
-		this.slots = new LinkedHashMap<>();
-		
-		int slots = this.rows * 9;
-		
-		for(int i = 0; i < slots; i++)
+		Map<Integer, SlotToken> slots = new LinkedHashMap<>();
+		int slotAmt = this.rows * 9;
+		for(int i = 0; i < slotAmt; i++)
 		{
 			ConfigurationSection slotSection = section.getConfigurationSection(String.valueOf(i));
 			if(!slotSection.isEmpty())
 			{
 				SlotToken token = new SlotToken(i, slotSection, this.macroParser.getTokens());
-				this.slots.put(i, token);
+				slots.put(i, token);
 			}
 		}
+		return slots;
 	}
 	
 	public String getTitle()

@@ -25,10 +25,10 @@ public class FunctionToken implements Serializable {
 	 */
 	private static final long serialVersionUID = -1157621981134953861L;
 	
-	private String name;
-	private List<FunctionType> types;
-	private List<FunctionData> functions;
-	private List<FunctionData> failOnFunctions;
+	private final String name;
+	private final List<FunctionType> types;
+	private final List<FunctionData> functions;
+	private final List<FunctionData> failOnFunctions;
 	public FunctionToken(String name, List<FunctionType> types, List<FunctionData> functions, List<FunctionData> failOnFunctions)
 	{
 		this.name = name;

@@ -33,34 +33,29 @@ public class SlotToken implements Serializable {
 	 */
 	private static final long serialVersionUID = -1898426889177654844L;
 	
-	private int index;
-	private int amount;
-	private String icon;
-	private String name;
-	private String nbt;
-	private boolean glow;
-	private boolean moveable;
-	private boolean closed;
-	private byte data;
-	private List<String> lore;
-	private List<String> enchants;
-	private int updateInterval;
-	private MacroParser macroParser;
-	private FunctionTree functionTree;
-	private Map<String, String> metadata;
+	private final int index;
+	private final int amount;
+	private final String icon;
+	private final String name;
+	private final String nbt;
+	private final boolean glow;
+	private final boolean moveable;
+	private final boolean closed;
+	private final byte data;
+	private final List<String> lore;
+	private final List<String> enchants;
+	private final int updateInterval;
+	private final MacroParser macroParser;
+	private final FunctionTree functionTree;
+	private final Map<String, String> metadata;
 	public SlotToken(int index, ConfigurationSection section)
 	{
-		this(index, section, new ArrayList<MacroToken>());
+		this(index, section, new ArrayList<>());
 	}
 	
 	public SlotToken(int index, ConfigurationSection section, List<MacroToken> macroTokens)
 	{
-		List<MacroToken> copyMacroTokens = new ArrayList<>();
-		for(MacroToken macroToken : macroTokens)
-		{
-			copyMacroTokens.add(macroToken);
-		}
-		
+		List<MacroToken> copyMacroTokens = new ArrayList<>(macroTokens);
 		ConfigurationSection macrosSection = section.getConfigurationSection("macros");
 		copyMacroTokens.add(new MacroToken(macrosSection));
 		
@@ -100,8 +95,7 @@ public class SlotToken implements Serializable {
 		String stringData = this.macroParser.parseStringMacros(data);
 		try
 		{
-			byte bytes = Byte.parseByte(stringData);
-			return bytes;
+			return Byte.parseByte(stringData);
 		}
 		catch(Exception ex)
 		{
@@ -135,7 +129,7 @@ public class SlotToken implements Serializable {
 		try
 		{
 			String parsed = this.macroParser.parseStringMacros(data);
-			return Integer.valueOf(parsed);
+			return Integer.parseInt(parsed);
 		}
 		catch(Exception ex)
 		{
@@ -146,10 +140,7 @@ public class SlotToken implements Serializable {
 	private int parseUpdateInterval(String data)
 	{
 		int updateInterval = this.parseInteger(data);
-		if(updateInterval < 0)
-			return 0;
-		
-		return updateInterval;
+		return Math.max(updateInterval, 0);
 	}
 	
 	private Map<String, String> parseMetadata(ConfigurationSection section)

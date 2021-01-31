@@ -21,7 +21,6 @@ import java.util.List;
 
 import com.clubobsidian.dynamicgui.parser.function.*;
 import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.fuzzutil.StringFuzz;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -32,12 +31,12 @@ public class FunctionTree implements Serializable {
 	 */
 	private static final long serialVersionUID = -3700259615018247686L;
 	
-	private List<FunctionNode> rootNodes;
-	private MacroParser macroParser;
-	private FunctionTypeParser functionTypeParser;
+	private final List<FunctionNode> rootNodes;
+	private final MacroParser macroParser;
+	private final FunctionTypeParser functionTypeParser;
 	public FunctionTree()
 	{
-		this(new ArrayList<FunctionNode>(), new MacroParser(new ArrayList<MacroToken>()));
+		this(new ArrayList<>(), new MacroParser(new ArrayList<>()));
 	}
 	
 	public FunctionTree(List<FunctionNode> rootNodes, MacroParser macroParser)
@@ -49,12 +48,12 @@ public class FunctionTree implements Serializable {
 	
 	public FunctionTree(ConfigurationSection section)
 	{
-		this(section, new MacroParser(new ArrayList<MacroToken>()));
+		this(section, new MacroParser(new ArrayList<>()));
 	}
 	
 	public FunctionTree(ConfigurationSection section, MacroParser macroParser)
 	{
-		this(new ArrayList<FunctionNode>(), macroParser);
+		this(new ArrayList<>(), macroParser);
 		this.parseNodes(section);
 	}
 	
@@ -86,21 +85,21 @@ public class FunctionTree implements Serializable {
 		}
 		
 		String[] ar = new String[3];
-		String dat = null;
 		String[] args = functionData.split(":");
-		
-		dat = args[1].trim();
+		StringBuilder dat = new StringBuilder();
+		dat.append(args[1].trim());
 		
 		if(args.length > 2)
 		{
 			for(int i = 2; i < args.length; i++)
 			{
-				dat +=  ":" + args[i];
+				dat.append(":");
+				dat.append(args[i]);
 			}
 		}
 		
 		ar[0] = StringFuzz.normalize(args[0]);
-		ar[1] = dat;
+		ar[1] = dat.toString();
 		//Replace if there is a modifier
 		FunctionModifier modifier = FunctionModifier.findModifier(ar[0]);
 		ar[0] = ar[0].replaceFirst(modifier.getModifier(), "");
@@ -112,7 +111,7 @@ public class FunctionTree implements Serializable {
 	{
 		List<String> parsedTokens = this.macroParser.parseListMacros(tokens);
 		
-		List<FunctionData> functionTokens = new ArrayList<FunctionData>();
+		List<FunctionData> functionTokens = new ArrayList<>();
 		for(String token : parsedTokens)
 		{
 			String[] parsedFunctionData = this.parseFunctionData(token);
@@ -129,15 +128,14 @@ public class FunctionTree implements Serializable {
 	
 	private void walkTree(int depth, ConfigurationSection section, FunctionNode parentNode)
 	{
-		for(String rootKey : section.getKeys())
+		for(String name : section.getKeys())
 		{
-			ConfigurationSection rootSection = section.getConfigurationSection(rootKey);
+			ConfigurationSection rootSection = section.getConfigurationSection(name);
 			if(rootSection.get("functions") == null)
 			{
 				continue;
 			}
-			
-			String name = rootKey;
+
 			List<FunctionType> types = this.functionTypeParser.parseTypes(rootSection.getStringList("type"));
 			List<FunctionData> functionTokens = this.parseFunctionData(rootSection.getStringList("functions"));
 			List<FunctionData> failFunctions = this.parseFunctionData(rootSection.getStringList("fail-on"));

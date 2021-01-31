@@ -20,9 +20,8 @@ public enum FunctionModifier {
     NOT("!"),
     NONE("");
 
-    private String modifier;
-
-    private FunctionModifier(String modifier)
+    private final String modifier;
+    FunctionModifier(String modifier)
     {
         this.modifier = modifier;
     }

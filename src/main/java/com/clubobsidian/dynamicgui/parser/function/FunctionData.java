@@ -28,7 +28,7 @@ public class FunctionData implements Serializable {
 	
 	private final String name;
 	private final String data;
-	private FunctionModifier modifier;
+	private final FunctionModifier modifier;
 	public FunctionData(String name, String data, FunctionModifier modifier)
 	{
 		this.name = StringFuzz.normalize(name);
