@@ -26,134 +26,116 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class FunctionTree implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3700259615018247686L;
-	
-	private final List<FunctionNode> rootNodes;
-	private final MacroParser macroParser;
-	private final FunctionTypeParser functionTypeParser;
-	public FunctionTree()
-	{
-		this(new ArrayList<>(), new MacroParser(new ArrayList<>()));
-	}
-	
-	public FunctionTree(List<FunctionNode> rootNodes, MacroParser macroParser)
-	{
-		this.rootNodes = rootNodes;
-		this.macroParser = macroParser;
-		this.functionTypeParser = new FunctionTypeParser(this.macroParser);
-	}
-	
-	public FunctionTree(ConfigurationSection section)
-	{
-		this(section, new MacroParser(new ArrayList<>()));
-	}
-	
-	public FunctionTree(ConfigurationSection section, MacroParser macroParser)
-	{
-		this(new ArrayList<>(), macroParser);
-		this.parseNodes(section);
-	}
-	
-	public List<FunctionNode> getRootNodes()
-	{
-		return this.rootNodes;
-	}
-	
-	public MacroParser getMacroParser()
-	{
-		return this.macroParser;
-	}
-	
-	private void parseNodes(ConfigurationSection section)
-	{
-		int depth = 0;
-		this.walkTree(depth, section, null);
-	}
-	
-	private String[] parseFunctionData(String functionData)
-	{
-		if(!functionData.contains(":"))
-		{
-			String[] args = new String[3];
-			args[0] = functionData;
-			args[1] = null;
-			args[2] = FunctionModifier.NONE.name();
-			return args;
-		}
-		
-		String[] ar = new String[3];
-		String[] args = functionData.split(":");
-		StringBuilder dat = new StringBuilder();
-		dat.append(args[1].trim());
-		
-		if(args.length > 2)
-		{
-			for(int i = 2; i < args.length; i++)
-			{
-				dat.append(":");
-				dat.append(args[i]);
-			}
-		}
-		
-		ar[0] = StringFuzz.normalize(args[0]);
-		ar[1] = dat.toString();
-		//Replace if there is a modifier
-		FunctionModifier modifier = FunctionModifier.findModifier(ar[0]);
-		ar[0] = ar[0].replaceFirst(modifier.getModifier(), "");
-		ar[2] = modifier.name();
-		return ar;	
-	}
-	
-	private List<FunctionData> parseFunctionData(final List<String> tokens)
-	{
-		List<String> parsedTokens = this.macroParser.parseListMacros(tokens);
-		
-		List<FunctionData> functionTokens = new ArrayList<>();
-		for(String token : parsedTokens)
-		{
-			String[] parsedFunctionData = this.parseFunctionData(token);
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3700259615018247686L;
 
-			String functionName = parsedFunctionData[0];
-			String functionData = parsedFunctionData[1];
-			String modifierStr = parsedFunctionData[2];
-			FunctionModifier modifier = FunctionModifier.valueOf(modifierStr);
+    private final List<FunctionNode> rootNodes;
+    private final MacroParser macroParser;
+    private final FunctionTypeParser functionTypeParser;
 
-			functionTokens.add(new FunctionData(functionName, functionData, modifier));
-		}
-		return functionTokens;
-	}
-	
-	private void walkTree(int depth, ConfigurationSection section, FunctionNode parentNode)
-	{
-		for(String name : section.getKeys())
-		{
-			ConfigurationSection rootSection = section.getConfigurationSection(name);
-			if(rootSection.get("functions") == null)
-			{
-				continue;
-			}
+    public FunctionTree() {
+        this(new ArrayList<>(), new MacroParser(new ArrayList<>()));
+    }
 
-			List<FunctionType> types = this.functionTypeParser.parseTypes(rootSection.getStringList("type"));
-			List<FunctionData> functionTokens = this.parseFunctionData(rootSection.getStringList("functions"));
-			List<FunctionData> failFunctions = this.parseFunctionData(rootSection.getStringList("fail-on"));
-			
-			FunctionToken data = new FunctionToken(name, types, functionTokens, failFunctions);
-			FunctionNode childNode = new FunctionNode(depth, data);
-			
-			if(depth == 0)
-			{
-				this.rootNodes.add(childNode);
-			}
-			else
-			{
-				parentNode.addChild(childNode);
-			}
-			
-			int newDepth = depth + 1;
-			walkTree(newDepth, rootSection, childNode);
-		}
-	}
+    public FunctionTree(List<FunctionNode> rootNodes, MacroParser macroParser) {
+        this.rootNodes = rootNodes;
+        this.macroParser = macroParser;
+        this.functionTypeParser = new FunctionTypeParser(this.macroParser);
+    }
+
+    public FunctionTree(ConfigurationSection section) {
+        this(section, new MacroParser(new ArrayList<>()));
+    }
+
+    public FunctionTree(ConfigurationSection section, MacroParser macroParser) {
+        this(new ArrayList<>(), macroParser);
+        this.parseNodes(section);
+    }
+
+    public List<FunctionNode> getRootNodes() {
+        return this.rootNodes;
+    }
+
+    public MacroParser getMacroParser() {
+        return this.macroParser;
+    }
+
+    private void parseNodes(ConfigurationSection section) {
+        int depth = 0;
+        this.walkTree(depth, section, null);
+    }
+
+    private String[] parseFunctionData(String functionData) {
+        if (!functionData.contains(":")) {
+            String[] args = new String[3];
+            args[0] = functionData;
+            args[1] = null;
+            args[2] = FunctionModifier.NONE.name();
+            return args;
+        }
+
+        String[] ar = new String[3];
+        String[] args = functionData.split(":");
+        StringBuilder dat = new StringBuilder();
+        dat.append(args[1].trim());
+
+        if (args.length > 2) {
+            for (int i = 2; i < args.length; i++) {
+                dat.append(":");
+                dat.append(args[i]);
+            }
+        }
+
+        ar[0] = StringFuzz.normalize(args[0]);
+        ar[1] = dat.toString();
+        //Replace if there is a modifier
+        FunctionModifier modifier = FunctionModifier.findModifier(ar[0]);
+        ar[0] = ar[0].replaceFirst(modifier.getModifier(), "");
+        ar[2] = modifier.name();
+        return ar;
+    }
+
+    private List<FunctionData> parseFunctionData(final List<String> tokens) {
+        List<String> parsedTokens = this.macroParser.parseListMacros(tokens);
+
+        List<FunctionData> functionTokens = new ArrayList<>();
+        for (String token : parsedTokens) {
+            String[] parsedFunctionData = this.parseFunctionData(token);
+
+            String functionName = parsedFunctionData[0];
+            String functionData = parsedFunctionData[1];
+            String modifierStr = parsedFunctionData[2];
+            FunctionModifier modifier = FunctionModifier.valueOf(modifierStr);
+
+            functionTokens.add(new FunctionData(functionName, functionData, modifier));
+        }
+        return functionTokens;
+    }
+
+    private void walkTree(int depth, ConfigurationSection section, FunctionNode parentNode) {
+        for (String name : section.getKeys()) {
+            ConfigurationSection rootSection = section.getConfigurationSection(name);
+            if (rootSection.get("functions") == null) {
+                continue;
+            }
+
+            List<FunctionType> types = this.functionTypeParser.parseTypes(rootSection.getStringList("type"));
+            List<FunctionData> functionTokens = this.parseFunctionData(rootSection.getStringList("functions"));
+            List<FunctionData> failFunctions = this.parseFunctionData(rootSection.getStringList("fail-on"));
+
+            FunctionToken data = new FunctionToken(name, types, functionTokens, failFunctions);
+            FunctionNode childNode = new FunctionNode(depth, data);
+
+            if (depth == 0) {
+                this.rootNodes.add(childNode);
+            } else {
+                parentNode.addChild(childNode);
+            }
+
+            int newDepth = depth + 1;
+            walkTree(newDepth, rootSection, childNode);
+        }
+    }
 }

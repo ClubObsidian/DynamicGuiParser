@@ -21,43 +21,39 @@ import java.util.Map;
 import com.clubobsidian.fuzzutil.StringFuzz;
 
 public enum FunctionType {
-	
-	CLICK(true),
-	LEFT(true),
-	RIGHT(true),
-	MIDDLE(true),
-	SHIFT_CLICK(true),
-	SHIFT_LEFT(true),
-	SHIFT_RIGHT(true),
-	LOAD(false),
-	FAIL(false),
-	SWITCH_MENU(false),
-	EXIT_MENU(false);
-	
-	private final boolean isClick;
-	FunctionType(boolean isClick)
-	{
-		this.isClick = isClick;
-	}
-	
-	public boolean isClick()
-	{
-		return this.isClick;
-	}
-	
-	private final static Map<String, FunctionType> normalizedFunctions = new HashMap<>();
-	
-	static
-	{
-		for(FunctionType type : FunctionType.values())
-		{
-			String normalized = StringFuzz.normalize(type.toString());
-			normalizedFunctions.put(normalized, type);
-		}
-	}
-	
-	public static FunctionType getFuzzyType(String type)
-	{
-		return normalizedFunctions.get(StringFuzz.normalize(type));
-	}
+
+    CLICK(true),
+    LEFT(true),
+    RIGHT(true),
+    MIDDLE(true),
+    SHIFT_CLICK(true),
+    SHIFT_LEFT(true),
+    SHIFT_RIGHT(true),
+    LOAD(false),
+    FAIL(false),
+    SWITCH_MENU(false),
+    EXIT_MENU(false);
+
+    private final boolean isClick;
+
+    FunctionType(boolean isClick) {
+        this.isClick = isClick;
+    }
+
+    public boolean isClick() {
+        return this.isClick;
+    }
+
+    private final static Map<String, FunctionType> normalizedFunctions = new HashMap<>();
+
+    static {
+        for (FunctionType type : FunctionType.values()) {
+            String normalized = StringFuzz.normalize(type.toString());
+            normalizedFunctions.put(normalized, type);
+        }
+    }
+
+    public static FunctionType getFuzzyType(String type) {
+        return normalizedFunctions.get(StringFuzz.normalize(type));
+    }
 }

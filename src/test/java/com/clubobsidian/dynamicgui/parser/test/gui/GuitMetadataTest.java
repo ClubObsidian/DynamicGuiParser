@@ -30,15 +30,14 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class GuitMetadataTest {
 
-	@Test
-	public void testSlotMetadata()
-	{
-		File slotFolder = new File("test", "gui");
-		File metadataFile = new File(slotFolder, "metadata.yml");
-		Configuration config = Configuration.load(metadataFile);
-		GuiToken token = new GuiToken(config);
-		Map<String, String> metadata = token.getMetadata();
-		assertTrue(metadata.size() == 1);
-		assertTrue(metadata.get("some").equals("metadata"));
-	}
+    @Test
+    public void testSlotMetadata() {
+        File slotFolder = new File("test", "gui");
+        File metadataFile = new File(slotFolder, "metadata.yml");
+        Configuration config = Configuration.load(metadataFile);
+        GuiToken token = new GuiToken(config);
+        Map<String, String> metadata = token.getMetadata();
+        assertTrue(metadata.size() == 1);
+        assertTrue(metadata.get("some").equals("metadata"));
+    }
 }

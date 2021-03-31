@@ -24,16 +24,14 @@ import static org.junit.Assert.assertEquals;
 public class FunctionModifierTest {
 
     @Test
-    public void testHasNotModifier()
-    {
+    public void testHasNotModifier() {
         FunctionModifier modifier = FunctionModifier.findModifier("!aaa");
         assertEquals(modifier, FunctionModifier.NOT);
     }
 
 
     @Test
-    public void testNoModifier()
-    {
+    public void testNoModifier() {
         FunctionModifier modifier = FunctionModifier.findModifier("aaa");
         assertEquals(modifier, FunctionModifier.NONE);
     }

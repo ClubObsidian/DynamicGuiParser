@@ -29,15 +29,14 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class EnchantTest {
 
-	@Test
-	public void enchantTest()
-	{
-		File slotFolder = new File("test", "slot");
-		File file = new File(slotFolder, "enchants.yml");
-		Configuration config = Configuration.load(file);
-		ConfigurationSection section = config.getConfigurationSection("0");
-		SlotToken token = new SlotToken(0, section);
-		List<String> enchants = token.getEnchants();
-		assertTrue("Slot enchants size is not 3", enchants.size() == 3);
-	}
+    @Test
+    public void enchantTest() {
+        File slotFolder = new File("test", "slot");
+        File file = new File(slotFolder, "enchants.yml");
+        Configuration config = Configuration.load(file);
+        ConfigurationSection section = config.getConfigurationSection("0");
+        SlotToken token = new SlotToken(0, section);
+        List<String> enchants = token.getEnchants();
+        assertTrue("Slot enchants size is not 3", enchants.size() == 3);
+    }
 }

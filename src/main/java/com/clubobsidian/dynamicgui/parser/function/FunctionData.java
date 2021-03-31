@@ -21,33 +21,30 @@ import com.clubobsidian.fuzzutil.StringFuzz;
 
 public class FunctionData implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3386051776711859198L;
-	
-	private final String name;
-	private final String data;
-	private final FunctionModifier modifier;
-	public FunctionData(String name, String data, FunctionModifier modifier)
-	{
-		this.name = StringFuzz.normalize(name);
-		this.data = data;
-		this.modifier = modifier;
-	}
-	
-	public String getName()
-	{
-		return this.name;
-	}
-	
-	public String getData()
-	{
-		return this.data;
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3386051776711859198L;
 
-	public FunctionModifier getModifier()
-	{
-		return this.modifier;
-	}
+    private final String name;
+    private final String data;
+    private final FunctionModifier modifier;
+
+    public FunctionData(String name, String data, FunctionModifier modifier) {
+        this.name = StringFuzz.normalize(name);
+        this.data = data;
+        this.modifier = modifier;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getData() {
+        return this.data;
+    }
+
+    public FunctionModifier getModifier() {
+        return this.modifier;
+    }
 }
