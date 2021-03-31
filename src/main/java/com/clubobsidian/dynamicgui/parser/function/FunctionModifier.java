@@ -21,24 +21,19 @@ public enum FunctionModifier {
     NONE("");
 
     private final String modifier;
-    FunctionModifier(String modifier)
-    {
+
+    FunctionModifier(String modifier) {
         this.modifier = modifier;
     }
 
-    public String getModifier()
-    {
+    public String getModifier() {
         return this.modifier;
     }
 
-    public static FunctionModifier findModifier(String functionData)
-    {
-        for(FunctionModifier modifier : FunctionModifier.values())
-        {
-            if(modifier != FunctionModifier.NONE)
-            {
-                if (functionData.startsWith(modifier.getModifier()))
-                {
+    public static FunctionModifier findModifier(String functionData) {
+        for (FunctionModifier modifier : FunctionModifier.values()) {
+            if (modifier != FunctionModifier.NONE) {
+                if (functionData.startsWith(modifier.getModifier())) {
                     return modifier;
                 }
             }

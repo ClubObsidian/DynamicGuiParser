@@ -28,15 +28,14 @@ import com.clubobsidian.wrappy.Configuration;
 
 public class LoadMacrosTest {
 
-	@Test
-	public void testLoadMacros()
-	{
-		File slotFolder = new File("test", "gui");
-		File file = new File(slotFolder, "load-macros.yml");
-		Configuration config = Configuration.load(file);
-		GuiToken token = new GuiToken(config);
-		List<String> loadMacros = token.getLoadMacros();
-		assertTrue(loadMacros.size() == 1);
-		assertTrue(loadMacros.get(0).equals("test"));
-	}
+    @Test
+    public void testLoadMacros() {
+        File slotFolder = new File("test", "gui");
+        File file = new File(slotFolder, "load-macros.yml");
+        Configuration config = Configuration.load(file);
+        GuiToken token = new GuiToken(config);
+        List<String> loadMacros = token.getLoadMacros();
+        assertTrue(loadMacros.size() == 1);
+        assertTrue(loadMacros.get(0).equals("test"));
+    }
 }

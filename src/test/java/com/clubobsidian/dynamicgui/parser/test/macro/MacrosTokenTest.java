@@ -30,61 +30,58 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class MacrosTokenTest {
 
-	@Test
-	public void testGuiMacroToken()
-	{
-		File file = new File("test.yml");
-		Configuration config = Configuration.load(file);
-		ConfigurationSection section = config
-				.getConfigurationSection("macros");
-		MacroToken token = new MacroToken(section);
-		Map<String, Object> macros = token.getMacros();
-		
-		assertTrue("Macros did not load in for gui macros, size is not 2", macros.size() == 2);
-	}
-	
-	@Test
-	@SuppressWarnings("rawtypes")
-	public void testSlotMacroToken()
-	{
-		File file = new File("test.yml");
-		Configuration config = Configuration.load(file);
-		ConfigurationSection section = config
-				.getConfigurationSection("2")
-				.getConfigurationSection("macros");
-		
-		System.out.println(section.getKeys());
-		
-		MacroToken token = new MacroToken(section);
-		Map<String, Object> macros = token.getMacros();
-		
-		Object firstMacro = macros.get("%test%");
-		assertTrue("First line of slot macro is not a string", firstMacro instanceof String);
-		assertTrue("First macro is not 'This is some text'", firstMacro.equals("This is some text"));
-		
-		Object secondMacro = macros.get("%multiline-test%");
-		assertTrue("Second line of slot macro is not a list", secondMacro instanceof List);
-		
-		List listMacro = ((List) secondMacro);
-		
-		assertTrue("Second line of slot macro's first line is not a string", listMacro.get(0) instanceof String);
-		assertTrue("Second line of slot macro's size is not 3", listMacro.size() == 3);
-		
-	}
-	
-	@Test
-	public void testEmptyMacroToken()
-	{
-		File file = new File("test.yml");
-		Configuration config = Configuration.load(file);
-		ConfigurationSection section = config
-				.getConfigurationSection("1")
-				.getConfigurationSection("macros");
-		
-		MacroToken token = new MacroToken(section);
-		Map<String, Object> macros = token.getMacros();
-		
-		assertTrue("Macros is null on an empty slot, it should just be empty", macros != null);
-		assertTrue("Macros is not empty when it should be empty", macros.size() == 0);
-	}
+    @Test
+    public void testGuiMacroToken() {
+        File file = new File("test.yml");
+        Configuration config = Configuration.load(file);
+        ConfigurationSection section = config
+                .getConfigurationSection("macros");
+        MacroToken token = new MacroToken(section);
+        Map<String, Object> macros = token.getMacros();
+
+        assertTrue("Macros did not load in for gui macros, size is not 2", macros.size() == 2);
+    }
+
+    @Test
+    @SuppressWarnings("rawtypes")
+    public void testSlotMacroToken() {
+        File file = new File("test.yml");
+        Configuration config = Configuration.load(file);
+        ConfigurationSection section = config
+                .getConfigurationSection("2")
+                .getConfigurationSection("macros");
+
+        System.out.println(section.getKeys());
+
+        MacroToken token = new MacroToken(section);
+        Map<String, Object> macros = token.getMacros();
+
+        Object firstMacro = macros.get("%test%");
+        assertTrue("First line of slot macro is not a string", firstMacro instanceof String);
+        assertTrue("First macro is not 'This is some text'", firstMacro.equals("This is some text"));
+
+        Object secondMacro = macros.get("%multiline-test%");
+        assertTrue("Second line of slot macro is not a list", secondMacro instanceof List);
+
+        List listMacro = ((List) secondMacro);
+
+        assertTrue("Second line of slot macro's first line is not a string", listMacro.get(0) instanceof String);
+        assertTrue("Second line of slot macro's size is not 3", listMacro.size() == 3);
+
+    }
+
+    @Test
+    public void testEmptyMacroToken() {
+        File file = new File("test.yml");
+        Configuration config = Configuration.load(file);
+        ConfigurationSection section = config
+                .getConfigurationSection("1")
+                .getConfigurationSection("macros");
+
+        MacroToken token = new MacroToken(section);
+        Map<String, Object> macros = token.getMacros();
+
+        assertTrue("Macros is null on an empty slot, it should just be empty", macros != null);
+        assertTrue("Macros is not empty when it should be empty", macros.size() == 0);
+    }
 }

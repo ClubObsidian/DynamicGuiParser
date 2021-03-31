@@ -23,38 +23,34 @@ import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 
 public class FunctionNode implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8331607544830166913L;
-	
-	private final int depth;
-	private final FunctionToken token;
-	private final List<FunctionNode> children;
-	public FunctionNode(int depth, FunctionToken token)
-	{
-		this.depth = depth;
-		this.token = token;
-		this.children = new ArrayList<>();
-	}
-	
-	public int getDepth()
-	{
-		return this.depth;
-	}
-	
-	public FunctionToken getToken()
-	{
-		return this.token;
-	}
-	
-	public List<FunctionNode> getChildren()
-	{
-		return this.children;
-	}
-	
-	public boolean addChild(FunctionNode child)
-	{
-		return this.children.add(child);
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8331607544830166913L;
+
+    private final int depth;
+    private final FunctionToken token;
+    private final List<FunctionNode> children;
+
+    public FunctionNode(int depth, FunctionToken token) {
+        this.depth = depth;
+        this.token = token;
+        this.children = new ArrayList<>();
+    }
+
+    public int getDepth() {
+        return this.depth;
+    }
+
+    public FunctionToken getToken() {
+        return this.token;
+    }
+
+    public List<FunctionNode> getChildren() {
+        return this.children;
+    }
+
+    public boolean addChild(FunctionNode child) {
+        return this.children.add(child);
+    }
 }

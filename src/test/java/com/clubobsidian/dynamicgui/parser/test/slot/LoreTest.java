@@ -29,15 +29,14 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class LoreTest {
 
-	@Test
-	public void loreTest()
-	{
-		File slotFolder = new File("test", "slot");
-		File file = new File(slotFolder, "lore.yml");
-		Configuration config = Configuration.load(file);
-		ConfigurationSection section = config.getConfigurationSection("0");
-		SlotToken token = new SlotToken(0, section);
-		List<String> lore = token.getLore();
-		assertTrue("Slot lore size is not 2", lore.size() == 2);
-	}
+    @Test
+    public void loreTest() {
+        File slotFolder = new File("test", "slot");
+        File file = new File(slotFolder, "lore.yml");
+        Configuration config = Configuration.load(file);
+        ConfigurationSection section = config.getConfigurationSection("0");
+        SlotToken token = new SlotToken(0, section);
+        List<String> lore = token.getLore();
+        assertTrue("Slot lore size is not 2", lore.size() == 2);
+    }
 }
