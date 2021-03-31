@@ -28,9 +28,9 @@ public class FunctionNode implements Serializable {
 	 */
 	private static final long serialVersionUID = -8331607544830166913L;
 	
-	private int depth;
-	private FunctionToken token;
-	private List<FunctionNode> children;
+	private final int depth;
+	private final FunctionToken token;
+	private final List<FunctionNode> children;
 	public FunctionNode(int depth, FunctionToken token)
 	{
 		this.depth = depth;

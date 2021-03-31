@@ -60,7 +60,7 @@ public class MacrosTokenTest {
 		
 		Object firstMacro = macros.get("%test%");
 		assertTrue("First line of slot macro is not a string", firstMacro instanceof String);
-		assertTrue("First macro is not 'This is some text'", ((String) firstMacro).equals("This is some text"));
+		assertTrue("First macro is not 'This is some text'", firstMacro.equals("This is some text"));
 		
 		Object secondMacro = macros.get("%multiline-test%");
 		assertTrue("Second line of slot macro is not a list", secondMacro instanceof List);

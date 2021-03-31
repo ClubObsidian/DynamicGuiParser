@@ -99,7 +99,7 @@ public class FunctionTypeParserTest {
 	{
 		MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
 		FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
-		List<String> types = new ArrayList<>(Arrays.asList(new String[]{"LEFT", "RIGHT"}));
+		List<String> types = new ArrayList<>(Arrays.asList("LEFT", "RIGHT"));
 		List<FunctionType> parsedTypes = typeParser.parseTypes(types);
 		assertTrue(parsedTypes.size() == 2);
 	}
@@ -109,7 +109,7 @@ public class FunctionTypeParserTest {
 	{
 		MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
 		FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
-		List<String> types = new ArrayList<>(Arrays.asList(new String[]{"LEFT", "DOESNOTEXIST"}));
+		List<String> types = new ArrayList<>(Arrays.asList("LEFT", "DOESNOTEXIST"));
 		List<FunctionType> parsedTypes = typeParser.parseTypes(types);
 		assertTrue(parsedTypes.size() == 1);
 	}
