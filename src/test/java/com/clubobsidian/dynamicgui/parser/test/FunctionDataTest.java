@@ -33,26 +33,22 @@ public class FunctionDataTest {
 
 
     @Before
-    public void setup()
-    {
+    public void setup() {
         this.data = new FunctionData(NAME, DATA, MODIFIER);
     }
 
     @Test
-    public void testName()
-    {
+    public void testName() {
         assertEquals(this.data.getName(), NAME);
     }
 
     @Test
-    public void testData()
-    {
+    public void testData() {
         assertEquals(this.data.getData(), DATA);
     }
 
     @Test
-    public void testModifier()
-    {
+    public void testModifier() {
         assertEquals(this.data.getModifier(), MODIFIER);
     }
 }
