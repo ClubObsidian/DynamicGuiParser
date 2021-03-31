@@ -8,13 +8,13 @@ plugins {
 repositories {
     mavenCentral()
     jcenter()
-    maven { url = 'https://repo.spongepowered.org/maven' }
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
 	testImplementation 'junit:junit:4.12'
-	compile 'com.github.clubobsidian:wrappy:1.8.0'
+	testImplementation 'com.github.clubobsidian:wrappy:2.3.0'
+	compileOnly 'com.github.clubobsidian:wrappy:2.3.0'
 	compile 'com.github.ClubObsidian:FuzzUtil:1.1.0'
 	compile 'org.apache.commons:commons-lang3:3.9'
 }
