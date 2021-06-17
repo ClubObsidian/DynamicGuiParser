@@ -68,33 +68,33 @@ public class FunctionTree implements Serializable {
     }
 
     private String[] parseFunctionData(String functionData) {
+        String[] args = new String[3];
         if (!functionData.contains(":")) {
-            String[] args = new String[3];
-            args[0] = functionData;
+            args[0] = StringFuzz.normalize(functionData);
+            FunctionModifier modifier = FunctionModifier.findModifier(args[0]);
+            args[0] = functionData.replaceFirst(modifier.getModifier(), "");
             args[1] = null;
-            args[2] = FunctionModifier.NONE.name();
+            args[2] = modifier.name();
             return args;
         }
 
-        String[] ar = new String[3];
-        String[] args = functionData.split(":");
+        String[] split = functionData.split(":");
         StringBuilder dat = new StringBuilder();
-        dat.append(args[1].trim());
+        dat.append(split[1].trim());
 
-        if (args.length > 2) {
-            for (int i = 2; i < args.length; i++) {
+        if (split.length > 2) {
+            for (int i = 2; i < split.length; i++) {
                 dat.append(":");
-                dat.append(args[i]);
+                dat.append(split[i]);
             }
         }
 
-        ar[0] = StringFuzz.normalize(args[0]);
-        ar[1] = dat.toString();
-        //Replace if there is a modifier
-        FunctionModifier modifier = FunctionModifier.findModifier(ar[0]);
-        ar[0] = ar[0].replaceFirst(modifier.getModifier(), "");
-        ar[2] = modifier.name();
-        return ar;
+        args[0] = StringFuzz.normalize(split[0]);
+        args[1] = dat.toString();
+        FunctionModifier modifier = FunctionModifier.findModifier(args[0]);
+        args[0] = args[0].replaceFirst(modifier.getModifier(), "");
+        args[2] = modifier.name();
+        return args;
     }
 
     private List<FunctionData> parseFunctionData(final List<String> tokens) {
