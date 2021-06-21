@@ -188,7 +188,9 @@ public class SlotToken implements Serializable {
     public List<String> getEnchants() {
         return this.enchants;
     }
-    public List<String> getItemFlags() { return this.itemFlags; }
+    public List<String> getItemFlags() {
+        return this.itemFlags;
+    }
 
     public FunctionTree getFunctionTree() {
         return this.functionTree;
