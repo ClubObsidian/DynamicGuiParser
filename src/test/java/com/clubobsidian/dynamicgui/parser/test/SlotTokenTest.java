@@ -77,6 +77,7 @@ public class SlotTokenTest {
         assertTrue("Data was not 1", data == 1);
     }
 
+
     @Test
     public void testSlotFunctionTree() {
         FunctionTree tree = token.getFunctionTree();
