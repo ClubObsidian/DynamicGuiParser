@@ -1,3 +1,7 @@
+# Deprecated
+
+This repository is now deprecated, please look at the [main DynamicGui repository](https://github.com/ClubObsidian/DynamicGui) as the parser is now integrated into the main project.
+
 # DynamicGuiParser
 
 [![build](https://github.com/ClubObsidian/DynamicGuiParser/workflows/build/badge.svg)](https://github.com/ClubObsidian/DynamicGuiParser/actions?query=workflow%3Abuild)
